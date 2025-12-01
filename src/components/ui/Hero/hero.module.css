@@ -1,0 +1,23 @@
+.hero {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-inline: auto;
+  max-width: 72rem;
+  padding: 2rem 1.5rem 3rem;
+  text-align: center;
+}
+
+@media (max-width: 767px) {
+  .hero {
+    padding: 5rem 1.5rem 3rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .hero {
+    padding: 6rem 2rem 3rem;
+    gap: 4rem;
+  }
+}
