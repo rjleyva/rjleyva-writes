@@ -3,7 +3,7 @@
 }
 
 .socials__icon {
-  transition: all var(--transition-duration-normal);
+  transition: filter var(--transition-duration-normal);
   filter: drop-shadow(0 0 0 transparent);
 }
 
