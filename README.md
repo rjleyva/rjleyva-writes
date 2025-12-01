@@ -1,75 +1,106 @@
-# React + TypeScript + Vite
+# rjleyva.dev
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+RJ Leyva's personal blog, documenting web development insights through writing.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Current Project Structure
 
-## React Compiler
-
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
-
-Note: This will impact Vite dev & build performances.
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+rjleyva.dev/
+├── public/
+├── src/
+│   ├── components/
+│   │   ├── icons/
+│   │   │   ├── CheckIcon.tsx
+│   │   │   ├── CopyIcon.tsx
+│   │   │   ├── GithubIcon.tsx
+│   │   │   ├── InstagramIcon.tsx
+│   │   │   ├── LinkedinIcon.tsx
+│   │   │   ├── Logo.tsx
+│   │   │   ├── MoonIcon.tsx
+│   │   │   └── SunIcon.tsx
+│   │   └── ui/
+│   │       ├── Header/
+│   │       │   ├── Header.tsx
+│   │       │   └── header.module.css
+│   │       ├── Hero/
+│   │       │   ├── Hero.tsx
+│   │       │   └── hero.module.css
+│   │       ├── Socials/
+│   │       │   ├── Socials.tsx
+│   │       │   └── socials.module.css
+│   │       └── ThemeToggle/
+│   │           ├── ThemeToggle.tsx
+│   │           └── theme-toggle.module.css
+│   ├── constants/
+│   │   ├── socialLinks.ts
+│   │   └── theme.ts
+│   ├── contexts/
+│   │   ├── themeContext.ts
+│   │   └── ThemeProvider.tsx
+│   ├── hooks/
+│   │   └── useTheme.ts
+│   ├── layouts/
+│   │   ├── MainLayout.tsx
+│   │   └── home-layout.module.css
+│   ├── pages/
+│   │   └── Home.tsx
+│   ├── routes/
+│   │   └── routes.tsx
+│   ├── styles/
+│   │   ├── globals.css
+│   │   ├── themes.css
+│   │   └── tokens.css
+│   ├── types/
+│   │   ├── css-module.d.ts
+│   │   ├── icons.ts
+│   │   └── theme.ts
+│   └── main.tsx
+├── eslint.config.js
+├── index.html
+├── package.json
+├── pnpm-lock.yaml
+├── prettier.config.ts
+├── README.md
+├── tsconfig.app.json
+├── tsconfig.json
+├── tsconfig.node.json
+└── vite.config.ts
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Tech Stack
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Core Framework & Language
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- React 19+
+- TypeScript 5+
+- Vite 7+
+
+### Routing
+
+- React Router v7 (data-mode)
+
+### Styling
+
+- Modern Normalize
+- CSS Modules with BEM methodology
+- CSS custom properties for theming
+
+### Development Tools
+
+- ESLint with React plugins
+- Prettier with import sorting
+- TypeScript for type checking
+
+### Key Dependencies
+
+- @vitejs/plugin-react
+- eslint-plugin-react-refresh
+- modern-normalize
+
+## License
+
+MIT License.
+
+If you find this project helpful, please consider giving it a ⭐.
