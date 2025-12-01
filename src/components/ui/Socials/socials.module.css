@@ -1,0 +1,12 @@
+.socials__list {
+  gap: 0.75rem;
+}
+
+.socials__icon {
+  transition: all var(--transition-duration-normal);
+  filter: drop-shadow(0 0 0 transparent);
+}
+
+.socials__link:hover .socials__icon {
+  filter: drop-shadow(0 0 0.5rem var(--accent));
+}
