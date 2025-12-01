@@ -2,7 +2,7 @@ import type React from 'react'
 import { Link } from 'react-router'
 import Logo from '@/components/icons/Logo'
 import Socials from '../Socials/Socials'
-import { ThemeToggle } from '../ThemeToggle/ThemeToggle'
+import ThemeToggle from '../ThemeToggle/ThemeToggle'
 import styles from './header.module.css'
 
 const Header = (): React.JSX.Element => {
