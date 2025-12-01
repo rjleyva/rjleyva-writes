@@ -1,0 +1,26 @@
+.header {
+  position: fixed;
+  top: 1.25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  width: 100%;
+  max-width: calc(100vw - 3rem);
+}
+
+.header__nav {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 32rem;
+  margin-inline: auto;
+  padding: 1rem 1.5rem;
+  height: 4rem;
+  border-radius: var(--border-radius-large);
+  background: var(--glass-background);
+  border: var(--border-width-hairline) solid var(--border);
+  backdrop-filter: var(--backdrop-blur-strong);
+  transition: all var(--transition-duration-normal);
+  box-shadow: var(--shadow-elevation-medium);
+}
