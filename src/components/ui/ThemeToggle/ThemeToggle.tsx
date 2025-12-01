@@ -9,9 +9,7 @@ interface ThemeToggleProps {
   className?: string
 }
 
-export const ThemeToggle = ({
-  className
-}: ThemeToggleProps): React.JSX.Element => {
+const ThemeToggle = ({ className }: ThemeToggleProps): React.JSX.Element => {
   const { theme, toggleTheme } = useTheme()
 
   const handleToggle = (): void => {
@@ -37,3 +35,5 @@ export const ThemeToggle = ({
     </button>
   )
 }
+
+export default ThemeToggle
