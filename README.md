@@ -8,65 +8,97 @@ RJ Leyva's personal blog, documenting web development insights through writing.
 
 ```
 rjleyva.dev/
-├── public/
-├── src/
-│   ├── components/
-│   │   ├── icons/
-│   │   │   ├── CheckIcon.tsx
-│   │   │   ├── CopyIcon.tsx
-│   │   │   ├── GithubIcon.tsx
-│   │   │   ├── InstagramIcon.tsx
-│   │   │   ├── LinkedinIcon.tsx
-│   │   │   ├── Logo.tsx
-│   │   │   ├── MoonIcon.tsx
-│   │   │   └── SunIcon.tsx
-│   │   └── ui/
-│   │       ├── Header/
-│   │       │   ├── Header.tsx
-│   │       │   └── header.module.css
-│   │       ├── Hero/
-│   │       │   ├── Hero.tsx
-│   │       │   └── hero.module.css
-│   │       ├── Socials/
-│   │       │   ├── Socials.tsx
-│   │       │   └── socials.module.css
-│   │       └── ThemeToggle/
-│   │           ├── ThemeToggle.tsx
-│   │           └── theme-toggle.module.css
-│   ├── constants/
-│   │   ├── socialLinks.ts
-│   │   └── theme.ts
-│   ├── contexts/
-│   │   ├── themeContext.ts
-│   │   └── ThemeProvider.tsx
-│   ├── hooks/
-│   │   └── useTheme.ts
-│   ├── layouts/
-│   │   ├── MainLayout.tsx
-│   │   └── home-layout.module.css
-│   ├── pages/
-│   │   └── Home.tsx
-│   ├── routes/
-│   │   └── routes.tsx
-│   ├── styles/
-│   │   ├── globals.css
-│   │   ├── themes.css
-│   │   └── tokens.css
-│   ├── types/
-│   │   ├── css-module.d.ts
-│   │   ├── icons.ts
-│   │   └── theme.ts
-│   └── main.tsx
-├── eslint.config.js
-├── index.html
-├── package.json
-├── pnpm-lock.yaml
-├── prettier.config.ts
-├── README.md
-├── tsconfig.app.json
-├── tsconfig.json
-├── tsconfig.node.json
-└── vite.config.ts
+| .git/
+| .jj/
+| dist/
+| node_modules/
+| scripts/
+| | generateContentImports.ts
+| src/
+| | components/
+| | | icons/
+| | | | CheckIcon.tsx
+| | | | CopyIcon.tsx
+| | | | GithubIcon.tsx
+| | | | InstagramIcon.tsx
+| | | | LinkedinIcon.tsx
+| | | | Logo.tsx
+| | | | MoonIcon.tsx
+| | | | SunIcon.tsx
+| | | ui/
+| | | | BlogCard/
+| | | | | BlogCard.tsx
+| | | | | blog-card.module.css
+| | | | CodeBlock/
+| | | | | CodeBlock.tsx
+| | | | | code-block.module.css
+| | | | Header/
+| | | | | Header.tsx
+| | | | | header.module.css
+| | | | Hero/
+| | | | | Hero.tsx
+| | | | | hero.module.css
+| | | | RecentPost/
+| | | | | RecentPost.tsx
+| | | | | recent-post.module.css
+| | | | Socials/
+| | | | | Socials.tsx
+| | | | | socials.module.css
+| | | | ThemeToggle/
+| | | | | ThemeToggle.tsx
+| | | | | theme-toggle.module.css
+| | constants/
+| | | socialLinks.ts
+| | | theme.ts
+| | content/
+| | | blog/
+| | | | jj/
+| | | | | how-i-use-jujutsu.md                   # Sample Post
+| | | | react/
+| | | | | how-i-structure-a-vite-react-blog.md   # Sample Post
+| | contexts/
+| | | ThemeProvider.tsx
+| | | themeContext.ts
+| | hooks/
+| | | useClipboard.ts
+| | | useTheme.ts
+| | layouts/
+| | | MainLayout.tsx
+| | | home-layout.module.css
+| | lib/
+| | | content/
+| | | | generatedContent.ts
+| | | mardownRender.ts
+| | | postFormattingUtlis.ts
+| | main.tsx
+| | pages/
+| | | Home.tsx
+| | routes/
+| | | routes.tsx
+| | styles/
+| | | globals.css
+| | | themes.css
+| | | tokens.css
+| | types/
+| | | css-module.d.ts
+| | | icons.ts
+| | | post.ts
+| | | theme.ts
+| | utils/
+| | | reactNodeUtils.ts
+| | vite-env.d.ts
+| .gitignore
+| LICENSE
+| README.md
+| eslint.config.js
+| index.html
+| package.json
+| pnpm-lock.yaml
+| prettier.config.ts
+| tsconfig.app.json
+| tsconfig.json
+| tsconfig.node.json
+| vite.config.ts
 ```
 
 ## Tech Stack
