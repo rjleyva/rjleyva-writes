@@ -1,0 +1,11 @@
+.blog-posts {
+  text-align: center;
+  width: 100%;
+}
+
+.blog-posts {
+  display: grid;
+  grid-template-columns: 2fr;
+  gap: 4rem;
+  margin-top: 6rem;
+}
