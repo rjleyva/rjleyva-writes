@@ -1,8 +1,11 @@
+import { lazy, Suspense } from 'react'
 import type { RouteObject } from 'react-router'
-import BlogPosts from '@/components/ui/BlogPosts/BlogPosts'
-import BlogPage from '@/pages/blog/BlogPage'
+import Spinner from '@/components/ui/LoadingSpinner/LoadingSpinner'
 import HomePage from '@/pages/home/HomePage'
 import MainLayout from '../layouts/MainLayout'
+
+const BlogPage = lazy(() => import('@/pages/blog/BlogPage'))
+const BlogPosts = lazy(() => import('@/components/ui/BlogPosts/BlogPosts'))
 
 const routes: RouteObject[] = [
   {
@@ -14,11 +17,19 @@ const routes: RouteObject[] = [
       },
       {
         path: '/blog',
-        element: <BlogPosts />
+        element: (
+          <Suspense fallback={<Spinner />}>
+            <BlogPosts />
+          </Suspense>
+        )
       },
       {
         path: '/blog/:topic/:slug',
-        element: <BlogPage />
+        element: (
+          <Suspense fallback={<Spinner />}>
+            <BlogPage />
+          </Suspense>
+        )
       }
     ]
   }
