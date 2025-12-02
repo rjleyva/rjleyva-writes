@@ -4,6 +4,10 @@ RJ Leyva's personal blog, documenting web development insights through writing.
 
 ---
 
+## Current Status (WIP)
+
+![rjleyva.dev-screen-shot](./images/rjleyva-dev-sc.jpeg)
+
 ## Current Project Structure
 
 ```
