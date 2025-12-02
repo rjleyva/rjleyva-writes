@@ -8,7 +8,9 @@ interface HeroProps {
 const Hero = ({ heroTagline }: HeroProps): React.JSX.Element => {
   return (
     <div className={styles['hero']} aria-labelledby="hero-heading">
-      <h1 className="title-large-gradient">{heroTagline}</h1>
+      <h1 id="hero-heading" className="title-large-gradient">
+        {heroTagline}
+      </h1>
     </div>
   )
 }
