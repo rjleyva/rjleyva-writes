@@ -1,5 +1,5 @@
 import type React from 'react'
-import { memo, useEffect, useState } from 'react'
+import { memo, useEffect, useRef, useState } from 'react'
 import { useGetPost } from '@/hooks/useBlog'
 import { getPostMetadata } from '@/lib/postFormattingUtlis'
 import { renderMarkdown } from '@/services/markdownRenderingService'
@@ -12,23 +12,35 @@ const BlogPage = (): React.JSX.Element => {
     error: string | null
     isLoading: boolean
   }>({ content: null, error: null, isLoading: false })
+  const currentContentRef = useRef<string>('')
 
   useEffect(() => {
     const content = post?.content
 
     if (content != null && content.trim() !== '') {
+      const contentKey = content
+      currentContentRef.current = contentKey
+
       renderMarkdown(content)
         .then(({ dom }) => {
-          setContentState({ content: dom, error: null, isLoading: false })
+          // Only update if this is still the current content
+          if (currentContentRef.current === contentKey) {
+            setContentState({ content: dom, error: null, isLoading: false })
+          }
         })
         .catch(err => {
-          console.error('Failed to render markdown:', err)
-          setContentState({
-            content: null,
-            error: 'Failed to render content',
-            isLoading: false
-          })
+          // Only update if this is still the current content
+          if (currentContentRef.current === contentKey) {
+            console.error('Failed to render markdown:', err)
+            setContentState({
+              content: null,
+              error: 'Failed to render content',
+              isLoading: false
+            })
+          }
         })
+    } else {
+      currentContentRef.current = ''
     }
   }, [post?.content])
 
