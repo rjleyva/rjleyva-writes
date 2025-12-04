@@ -30,16 +30,20 @@ const parseMarkdownFile = (rawFileContent: string): ParsedMarkdownFile => {
 
   let markdownContent = rawFileContent
 
-  const frontmatterText = frontmatterMatch?.[1]
-  if (frontmatterText != null && frontmatterText.trim() !== '') {
-    try {
-      parsedFrontmatter = parseYaml(frontmatterText) as PostFrontmatter
-      markdownContent = rawFileContent.replace(frontmatterPattern, '')
-    } catch {
-      // Treat invlid YAML as plain markdown to avoid build failures
-      console.warn(
-        'Warning: Invalid YAML in frontmatter, treating as plain markdown'
-      )
+  if (frontmatterMatch != null) {
+    // Always remove frontmatter markers when they exist
+    markdownContent = rawFileContent.replace(frontmatterPattern, '')
+
+    const frontmatterText = frontmatterMatch[1]
+    if (frontmatterText != null && frontmatterText.trim() !== '') {
+      try {
+        parsedFrontmatter = parseYaml(frontmatterText) as PostFrontmatter
+      } catch {
+        // Treat invalid YAML as plain markdown to avoid build failures
+        console.warn(
+          'Warning: Invalid YAML in frontmatter, treating as plain markdown'
+        )
+      }
     }
   }
 
