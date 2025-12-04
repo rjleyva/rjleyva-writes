@@ -14,17 +14,9 @@ RJ Leyva's personal blog, documenting web development insights through writing.
 
 ![rjleyva-blog-page-screenshot](./images/blog-page-screenshot.jpeg)
 
-## TODO - Performance Optimizations
+### Sample Post
 
-- [ ] Implement React.lazy() for route-based code splitting to reduce initial bundle size
-- [ ] Add image optimization with lazy loading and WebP format support
-- [ ] Implement service worker for static asset caching and offline support
-- [x] Add React.memo() and useMemo() to prevent unnecessary re-renders
-- [x] **Change markdown approach**: Replace dual-processing (build-time HTML +
-      runtime React) with single-pass approach - either use pre-rendered HTML with
-      dangerouslySetInnerHTML or optimize React-based rendering with proper caching
-- [x] Optimize markdown rendering performance with caching strategies
-- [ ] Add preload hints for critical resources and routes
+![rjleyva-sample-post-screenshot](./images/sample-post-screenshot.jpeg)
 
 ## Current Project Structure
 
