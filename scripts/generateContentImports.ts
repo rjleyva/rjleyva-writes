@@ -119,7 +119,9 @@ const generateContentLoaderModule = (markdownFilePaths: string[]): string => {
       date:
         parsedFile.frontmatter.date instanceof Date
           ? parsedFile.frontmatter.date
-          : new Date(parsedFile.frontmatter.date),
+          : parsedFile.frontmatter.date.trim() !== ''
+            ? new Date(parsedFile.frontmatter.date)
+            : new Date(), // Fallback to current date when date is empty
       description: parsedFile.frontmatter.description,
       tags: parsedFile.frontmatter.tags ?? [],
       slug: slugFromFilename,
