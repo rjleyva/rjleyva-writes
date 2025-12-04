@@ -18,7 +18,7 @@ const BLOG_CONTENT_DIRECTORY = path.join(
 )
 
 const parseMarkdownFile = (rawFileContent: string): ParsedMarkdownFile => {
-  const frontmatterPattern = /^---\n([\s\S]*?)\n---\n/
+  const frontmatterPattern = /^---\n([\s\S]*?)\n---(?:\n|$)/
   const frontmatterMatch = rawFileContent.match(frontmatterPattern)
 
   let parsedFrontmatter: PostFrontmatter = {
@@ -37,7 +37,19 @@ const parseMarkdownFile = (rawFileContent: string): ParsedMarkdownFile => {
     const frontmatterText = frontmatterMatch[1]
     if (frontmatterText != null && frontmatterText.trim() !== '') {
       try {
-        parsedFrontmatter = parseYaml(frontmatterText) as PostFrontmatter
+        const parsed = parseYaml(frontmatterText) as Partial<PostFrontmatter>
+
+        // Validate and provide defaults for required fields
+        parsedFrontmatter = {
+          title: typeof parsed.title === 'string' ? parsed.title : '',
+          date:
+            typeof parsed.date === 'string' || parsed.date instanceof Date
+              ? parsed.date
+              : '',
+          description:
+            typeof parsed.description === 'string' ? parsed.description : '',
+          tags: Array.isArray(parsed.tags) ? parsed.tags : []
+        }
       } catch {
         // Treat invalid YAML as plain markdown to avoid build failures
         console.warn(
@@ -112,16 +124,23 @@ const generateContentLoaderModule = (markdownFilePaths: string[]): string => {
     const slugFromFilename = filename.replace('.md', '')
 
     // Use 200 words per minute for reading time calculation
-    const wordCount = parsedFile.markdownBody.split(/\s+/).length
-    const estimatedReadingTimeMinutes = Math.ceil(wordCount / 200)
+    const wordCount =
+      parsedFile.markdownBody.trim() === ''
+        ? 0
+        : parsedFile.markdownBody
+            .split(/\s+/)
+            .filter(word => word.trim().length > 0).length
+    const estimatedReadingTimeMinutes =
+      wordCount === 0 ? 0 : Math.ceil(wordCount / 200)
     const blogPost: Post = {
       title: parsedFile.frontmatter.title,
       date:
         parsedFile.frontmatter.date instanceof Date
           ? parsedFile.frontmatter.date
-          : parsedFile.frontmatter.date.trim() !== ''
+          : typeof parsedFile.frontmatter.date === 'string' &&
+              parsedFile.frontmatter.date.trim() !== ''
             ? new Date(parsedFile.frontmatter.date)
-            : new Date(), // Fallback to current date when date is empty
+            : new Date(0), // Fallback to Unix epoch when date is empty or invalid
       description: parsedFile.frontmatter.description,
       tags: parsedFile.frontmatter.tags ?? [],
       slug: slugFromFilename,
