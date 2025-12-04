@@ -1,0 +1,103 @@
+.blog-posts-sidebar {
+  width: 280px;
+  background: var(--surface-secondary);
+  border-right: 1px solid var(--border-subtle);
+  padding: 3rem 2rem;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.blog-posts-sidebar__header {
+  margin-bottom: 3rem;
+}
+
+.blog-posts-sidebar__title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.01em;
+}
+
+.blog-posts-sidebar__subtitle {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.blog-posts-sidebar__navigation {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.blog-posts-sidebar__nav-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: transparent;
+  border: none;
+  border-radius: var(--border-radius-medium);
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  transition: all var(--transition-duration-normal);
+  text-decoration: none;
+}
+
+.blog-posts-sidebar__nav-item:hover {
+  background: var(--surface-tertiary);
+  color: var(--text);
+}
+
+.blog-posts-sidebar__nav-item--active {
+  background: var(--accent);
+  color: white;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(var(--accent-rgb), 0.2);
+}
+
+.blog-posts-sidebar__nav-item--active:hover {
+  background: var(--accent);
+  opacity: 0.9;
+}
+
+.blog-posts-sidebar__nav-text {
+  flex: 1;
+  margin-right: 0.75rem;
+}
+
+.blog-posts-sidebar__nav-count {
+  background: var(--surface-tertiary);
+  color: var(--text-muted);
+  padding: 0.125rem 0.5rem;
+  border-radius: var(--border-radius-small);
+  font-size: 0.75rem;
+  font-weight: 600;
+  transition: all var(--transition-duration-normal);
+  flex-shrink: 0;
+}
+
+.blog-posts-sidebar__nav-item:hover .blog-posts-sidebar__nav-count {
+  background: var(--surface);
+  color: var(--text);
+}
+
+.blog-posts-sidebar__nav-item--active .blog-posts-sidebar__nav-count {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .blog-posts-sidebar {
+    display: none;
+  }
+}
