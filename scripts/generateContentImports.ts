@@ -1,153 +1,172 @@
-#!/usr/bin/env node
 import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
-import rehypeSlug from 'rehype-slug'
-import rehypeStringify from 'rehype-stringify'
-import remarkGfm from 'remark-gfm'
-import remarkParse from 'remark-parse'
-import remarkRehype from 'remark-rehype'
-import { unified } from 'unified'
 import { parse as parseYaml } from 'yaml'
 import type { Post, PostFrontmatter } from '@/types/post'
 
-interface ParsedFrontmatter {
-  data: PostFrontmatter
-  content: string
+// Parsed frontmatter and content from markdown file
+interface ParsedMarkdownFile {
+  frontmatter: PostFrontmatter
+  markdownBody: string
 }
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url))
-const contentDir = path.join(__dirname, '../src/content/blog')
+// Script configuration and paths
+const SCRIPT_DIRECTORY = path.dirname(fileURLToPath(import.meta.url))
+const BLOG_CONTENT_DIRECTORY = path.join(
+  SCRIPT_DIRECTORY,
+  '../src/content/blog'
+)
 
-// Create HTML processor for build-time markdown conversion
-const createHtmlProcessor = (): ReturnType<typeof unified> => {
-  return unified()
-    .use(remarkParse)
-    .use(remarkGfm)
-    .use(remarkRehype, {
-      allowDangerousHtml: true
-    })
-    .use(rehypeSlug)
-    .use(rehypeStringify) as unknown as ReturnType<typeof unified>
-}
+const parseMarkdownFile = (rawFileContent: string): ParsedMarkdownFile => {
+  const frontmatterPattern = /^---\n([\s\S]*?)\n---\n/
+  const frontmatterMatch = rawFileContent.match(frontmatterPattern)
 
-// Convert markdown to HTML at build time
-const markdownToHtml = (markdown: string): string => {
-  const processor = createHtmlProcessor()
-  const file = processor.processSync(markdown)
-  return String(file)
-}
-
-// Parse frontmatter from markdown content
-const parseFrontmatter = (fileContent: string): ParsedFrontmatter => {
-  const frontmatterMatch = fileContent.match(/^---\n([\s\S]*?)\n---\n/)
-  let data: PostFrontmatter = {
+  let parsedFrontmatter: PostFrontmatter = {
     title: '',
     date: '',
     description: '',
     tags: []
   }
-  let content = fileContent
-  if (frontmatterMatch?.[1] != null) {
-    data = parseYaml(frontmatterMatch[1]) as PostFrontmatter
-    content = fileContent.replace(/^---[\s\S]*?---\n/, '')
+
+  let markdownContent = rawFileContent
+
+  const frontmatterText = frontmatterMatch?.[1]
+  if (frontmatterText != null && frontmatterText.trim() !== '') {
+    try {
+      parsedFrontmatter = parseYaml(frontmatterText) as PostFrontmatter
+      markdownContent = rawFileContent.replace(frontmatterPattern, '')
+    } catch {
+      // Treat invlid YAML as plain markdown to avoid build failures
+      console.warn(
+        'Warning: Invalid YAML in frontmatter, treating as plain markdown'
+      )
+    }
   }
-  return { data, content }
+
+  return {
+    frontmatter: parsedFrontmatter,
+    markdownBody: markdownContent
+  }
 }
 
-// Scan the content directory for markdown files
-const scanContentDirectory = (): string[] => {
-  const files: string[] = []
+const discoverMarkdownFiles = (): string[] => {
+  const discoveredFiles: string[] = []
 
-  const scanDir = (dir: string, relativePath = ''): void => {
-    const entries = fs.readdirSync(dir, { withFileTypes: true })
+  const scanDirectoryRecursively = (
+    absoluteDirectoryPath: string,
+    relativePathFromContentRoot = ''
+  ): void => {
+    const directoryEntries = fs.readdirSync(absoluteDirectoryPath, {
+      withFileTypes: true
+    })
 
-    for (const entry of entries) {
-      const fullPath = path.join(dir, entry.name)
-      const relPath = path.join(relativePath, entry.name)
+    for (const entry of directoryEntries) {
+      const fullEntryPath = path.join(absoluteDirectoryPath, entry.name)
+      const relativeEntryPath = path.join(
+        relativePathFromContentRoot,
+        entry.name
+      )
 
       if (entry.isDirectory()) {
-        scanDir(fullPath, relPath)
+        // Support topic based organization with nested directories
+        scanDirectoryRecursively(fullEntryPath, relativeEntryPath)
       } else if (entry.isFile() && entry.name.endsWith('.md')) {
-        files.push(relPath)
+        discoveredFiles.push(relativeEntryPath)
       }
     }
   }
 
-  scanDir(contentDir)
-  return files
+  scanDirectoryRecursively(BLOG_CONTENT_DIRECTORY)
+  return discoveredFiles
 }
 
-// Generate the content loader with processed posts
-const generateContentLoader = (files: string[]): string => {
-  const imports: string[] = []
-  const modules: string[] = []
-  const posts: Post[] = []
+const generateContentLoaderModule = (markdownFilePaths: string[]): string => {
+  const importStatements: string[] = []
+  const moduleMappings: string[] = []
+  const processedBlogPosts: Post[] = []
 
-  for (const file of files) {
-    const varName = file.replace(/[^a-zA-Z0-9]/g, '_') + '_content'
-    const importPath = `@/content/blog/${file}?raw`
+  for (const relativeFilePath of markdownFilePaths) {
+    const importVariableName =
+      relativeFilePath.replace(/[^a-zA-Z0-9]/g, '_') + '_content'
+    const viteImportPath = `@/content/blog/${relativeFilePath}?raw`
 
-    imports.push(`import ${varName} from '${importPath}'`)
-    modules.push(`  '@/content/blog/${file}': ${varName}`)
+    importStatements.push(
+      `import ${importVariableName} from '${viteImportPath}'`
+    )
 
-    // Read and process the file content
-    const filePath = path.join(contentDir, file)
-    const fileContent = fs.readFileSync(filePath, 'utf-8')
-    const parsed = parseFrontmatter(fileContent)
+    moduleMappings.push(
+      `  '@/content/blog/${relativeFilePath}': ${importVariableName}`
+    )
 
-    // Extract topic and slug from file path
-    const pathParts = file.split('/')
-    const topic = pathParts[pathParts.length - 2] ?? ''
-    const fileName = pathParts[pathParts.length - 1] ?? ''
-    const slug = fileName.replace('.md', '')
+    const absoluteFilePath = path.join(BLOG_CONTENT_DIRECTORY, relativeFilePath)
+    const rawFileContent = fs.readFileSync(absoluteFilePath, 'utf-8')
+    const parsedFile = parseMarkdownFile(rawFileContent)
 
-    // Generate HTML content
-    const htmlContent = markdownToHtml(parsed.content)
+    const pathSegments = relativeFilePath.split('/')
+    const topicFromPath = pathSegments[pathSegments.length - 2] ?? ''
+    const filename = pathSegments[pathSegments.length - 1] ?? ''
+    const slugFromFilename = filename.replace('.md', '')
 
-    // Calculate reading time
-    const words = parsed.content.split(/\s+/).length
-    const readingTime = Math.ceil(words / 200)
-
-    posts.push({
-      title: parsed.data.title,
+    // Use 200 words per minute for reading time calculation
+    const wordCount = parsedFile.markdownBody.split(/\s+/).length
+    const estimatedReadingTimeMinutes = Math.ceil(wordCount / 200)
+    const blogPost: Post = {
+      title: parsedFile.frontmatter.title,
       date:
-        parsed.data.date instanceof Date
-          ? parsed.data.date
-          : new Date(parsed.data.date),
-      description: parsed.data.description,
-      tags: parsed.data.tags ?? [],
-      slug,
-      topic,
-      content: parsed.content,
-      htmlContent,
-      readingTime
-    })
+        parsedFile.frontmatter.date instanceof Date
+          ? parsedFile.frontmatter.date
+          : new Date(parsedFile.frontmatter.date),
+      description: parsedFile.frontmatter.description,
+      tags: parsedFile.frontmatter.tags ?? [],
+      slug: slugFromFilename,
+      topic: topicFromPath,
+      content: parsedFile.markdownBody,
+      readingTime: estimatedReadingTimeMinutes
+    }
+
+    processedBlogPosts.push(blogPost)
   }
 
-  return `// Auto-generated content imports - do not edit manually
+  const generatedModuleContent = `// Auto-generated content imports - do not edit manually
 // Generated by scripts/generateContentImports.ts
+// This file provides type-safe access to all blog content at build time
 
-${imports.join('\n')}
+${importStatements.join('\n')}
 
+// Raw markdown content accessible by file path
 export const contentModules = {
-${modules.join(',\n')}
+${moduleMappings.join(',\n')}
 }
 
-// Pre-processed posts with HTML content
-export const processedPosts = ${JSON.stringify(posts, null, 2)}
+// Processed blog posts with metadata and content
+export const processedPosts = ${JSON.stringify(processedBlogPosts, null, 2)} as const
 `
+
+  return generatedModuleContent
 }
 
-// Main execution
-const files = scanContentDirectory()
-const output = generateContentLoader(files)
+const executeContentGeneration = (): void => {
+  console.log('Discovering markdown files...')
+  const discoveredMarkdownFiles = discoverMarkdownFiles()
 
-const outputPath = path.join(
-  __dirname,
-  '../src/lib/content/generatedContent.ts'
-)
-fs.writeFileSync(outputPath, output)
+  console.log('Processing content and generating TypeScript module...')
+  const generatedContentModule = generateContentLoaderModule(
+    discoveredMarkdownFiles
+  )
 
-console.log(`Generated content loader for ${files.length} files:`)
-files.forEach(file => console.log(`  - ${file}`))
+  const outputFilePath = path.join(
+    SCRIPT_DIRECTORY,
+    '../src/lib/content/generatedContent.ts'
+  )
+
+  fs.writeFileSync(outputFilePath, generatedContentModule)
+
+  console.log(
+    `Generated content loader for ${discoveredMarkdownFiles.length} files`
+  )
+  discoveredMarkdownFiles.forEach(filePath => {
+    console.log(`  ${filePath}`)
+  })
+}
+
+executeContentGeneration()
