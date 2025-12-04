@@ -6,7 +6,6 @@ import styles from './blog-card.module.css'
 
 interface BlogCardProps {
   post: Post
-  idPrefix?: string
 }
 
 const BlogCard = ({ post }: BlogCardProps): React.JSX.Element => {
@@ -17,8 +16,11 @@ const BlogCard = ({ post }: BlogCardProps): React.JSX.Element => {
       <Link to={`/blog/${post.topic}/${post.slug}`}>
         <h2 className={styles['blog-card__title']}>{post.title}</h2>
         <p className={styles['blog-card__description']}>{post.description}</p>
-        <div className={styles['blog-card__meta']}>
-          <time dateTime={dateTime} className={styles['blog-card__date']}>
+        <div className={styles['blog-card__metadata']}>
+          <time
+            dateTime={dateTime}
+            className={styles['blog-card__publication-date']}
+          >
             {date}
           </time>
           <span className={styles['blog-card__reading-time']}>
@@ -28,7 +30,7 @@ const BlogCard = ({ post }: BlogCardProps): React.JSX.Element => {
         {post.tags.length > 0 && (
           <div className={styles['blog-card__tags']}>
             {post.tags.map(tag => (
-              <span key={tag} className={styles['blog-card__tag']}>
+              <span key={tag} className={styles['blog-card__individual-tag']}>
                 #{tag}
               </span>
             ))}
