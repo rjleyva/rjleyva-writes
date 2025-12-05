@@ -1,8 +1,8 @@
-import type { Post } from '@/types/post'
+import type { Post, SerializedPost } from '@/types/post'
 import { processedPosts } from './generatedContent'
 
 const convertProcessedPosts = (): Post[] => {
-  return processedPosts.map(post => ({
+  return (processedPosts as readonly SerializedPost[]).map(post => ({
     ...post,
     date: new Date(post.date),
     tags: [...post.tags]
