@@ -2,47 +2,31 @@ class FaviconManager {
   private faviconLinkElement: HTMLLinkElement | null = null
 
   constructor() {
-    this.setupFaviconManagement()
+    this.initFaviconElement()
   }
 
-  private setupFaviconManagement(): void {
+  private initFaviconElement(): void {
     this.faviconLinkElement = document.querySelector(
       'link[rel="icon"]'
     ) as HTMLLinkElement | null
-
-    if (!this.faviconLinkElement) {
-      this.faviconLinkElement = document.createElement('link')
-      this.faviconLinkElement.rel = 'icon'
-      this.faviconLinkElement.type = 'image/svg+xml'
-      document.head.appendChild(this.faviconLinkElement)
-    }
-
-    this.updateFaviconBasedOnSystemTheme()
-
-    const systemThemeMediaQuery = window.matchMedia(
-      '(prefers-color-scheme: dark)'
-    )
-    systemThemeMediaQuery.addEventListener('change', () =>
-      this.updateFaviconBasedOnSystemTheme()
-    )
-  }
-
-  private updateFaviconBasedOnSystemTheme(): void {
-    if (!this.faviconLinkElement) return
-
-    const systemPrefersDarkTheme = window.matchMedia(
-      '(prefers-color-scheme: dark)'
-    ).matches
-    this.faviconLinkElement.href = systemPrefersDarkTheme
-      ? '/favicons/favicon-dark.svg'
-      : '/favicons/favicon-light.svg'
   }
 
   public setFaviconForTheme(isDarkTheme: boolean): void {
+    // Ensure favicon element reference is cached
+    if (!this.faviconLinkElement) {
+      this.initFaviconElement()
+    }
+
     if (!this.faviconLinkElement) return
+
+    // Mapping logic:
+    // Both favicons use accent blue (#3a70d6) which has sufficient contrast on both light and dark backgrounds.
+    // This ensures favicon visibility regardless of macOS system theme (light/dark) or blog theme (light/dark).
+    // Cache-busting query parameter forces browser to reload favicon and prevents stale favicon display.
+    // The href change triggers favicon update when theme changes.
     this.faviconLinkElement.href = isDarkTheme
-      ? '/favicons/favicon-dark.svg'
-      : '/favicons/favicon-light.svg'
+      ? '/favicons/favicon-light.svg?theme=dark'
+      : '/favicons/favicon-dark.svg?theme=light'
   }
 }
 
