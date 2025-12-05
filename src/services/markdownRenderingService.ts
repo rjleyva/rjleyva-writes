@@ -5,7 +5,7 @@ import { MarkdownRenderer } from '@/lib/markdownRender'
 
 let rendererInstance: MarkdownRenderer | null = null
 
-const getRenderer = async (): Promise<MarkdownRenderer> => {
+const getRenderer = (): MarkdownRenderer => {
   rendererInstance ??= new MarkdownRenderer()
   return rendererInstance
 }
@@ -20,8 +20,8 @@ export const renderMarkdown = async (
   markdown: string
 ): Promise<RenderedContent> => {
   try {
-    const renderer = await getRenderer()
-    const { result: dom, mdast, hast } = await renderer.render(markdown)
+    const renderer = getRenderer()
+    const { result: dom, mdast, hast } = renderer.render(markdown)
 
     return { dom, mdast, hast }
   } catch (error) {
