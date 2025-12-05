@@ -18,7 +18,7 @@ const RecentPost = (): React.JSX.Element => {
           </h2>
           <div className="blog-grid">
             {recentPosts.map(post => (
-              <BlogCard key={post.slug} post={post} />
+              <BlogCard key={`${post.topic}/${post.slug}`} post={post} />
             ))}
           </div>
         </div>
