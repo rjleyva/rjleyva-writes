@@ -1,7 +1,7 @@
 import type { ReactElement } from 'react'
 import type { Root as HastRoot } from 'hast'
 import type { Root as MdastRoot } from 'mdast'
-import { MarkdownRenderer } from '@/lib/mardownRender'
+import { MarkdownRenderer } from '@/lib/markdownRender'
 
 let rendererInstance: MarkdownRenderer | null = null
 
