@@ -26,11 +26,7 @@ const ThemeToggle = ({ className }: ThemeToggleProps): React.JSX.Element => {
       aria-label={`Switch to ${isDark ? 'light' : 'dark'} mode`}
     >
       <span className={`${styles['theme-toggle__icon']} flex-center`}>
-        {isDark ? (
-          <SunIcon ariaLabel="" title="" />
-        ) : (
-          <MoonIcon ariaLabel="" title="" />
-        )}
+        {isDark ? <SunIcon /> : <MoonIcon />}
       </span>
     </button>
   )
