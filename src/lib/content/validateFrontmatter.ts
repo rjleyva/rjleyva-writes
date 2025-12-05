@@ -18,7 +18,7 @@ const isDateTypeValid = (date: unknown): boolean => {
   return (
     typeof date === 'string' ||
     date instanceof Date ||
-    (typeof date === 'number' && !Number.isNaN(date))
+    (typeof date === 'number' && !Number.isNaN(date) && Number.isFinite(date))
   )
 }
 
@@ -81,10 +81,21 @@ export const validateFrontmatter = (
     )
   }
 
+  const isValidTagsArray = (tags: unknown): tags is string[] => {
+    return (
+      Array.isArray(tags) &&
+      tags.every((tag): tag is string => typeof tag === 'string')
+    )
+  }
+
+  const validatedTags = isValidTagsArray(frontmatter.tags)
+    ? frontmatter.tags
+    : []
+
   return {
     title: frontmatter.title.trim(),
     date: parsedDate,
     description: frontmatter.description.trim(),
-    tags: Array.isArray(frontmatter.tags) ? frontmatter.tags : []
+    tags: validatedTags
   }
 }
