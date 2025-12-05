@@ -25,7 +25,9 @@ const BlogPostsGrid = ({
           </button>
         </div>
       ) : (
-        displayedPosts.map(post => <BlogCard key={post.slug} post={post} />)
+        displayedPosts.map(post => (
+          <BlogCard key={`${post.topic}/${post.slug}`} post={post} />
+        ))
       )}
     </div>
   )
