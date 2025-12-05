@@ -29,7 +29,7 @@ export class MarkdownRenderer {
       .use(remarkGfm)
       .use(remarkFrontmatter)
       .use(remarkRehype, {
-        allowDangerousHtml: true
+        allowDangerousHtml: false
       })
       .use(rehypeSlug)
       .use(rehypeReact, {
