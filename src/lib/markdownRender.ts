@@ -45,17 +45,17 @@ export class MarkdownRenderer {
     return processor
   }
 
-  async getProcessor(): Promise<ReturnType<typeof unified>> {
+  getProcessor(): ReturnType<typeof unified> {
     if (this.processor != null) return this.processor
     return this.createProcessor()
   }
 
-  async render(markdown: string): Promise<{
+  render(markdown: string): {
     result: React.ReactElement
     mdast: MdastRoot | null
     hast: HastRoot | null
-  }> {
-    const processor = await this.getProcessor()
+  } {
+    const processor = this.getProcessor()
     const file = processor.processSync(markdown)
     const result = file.result as React.ReactElement
 
