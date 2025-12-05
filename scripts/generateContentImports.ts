@@ -2,61 +2,135 @@ import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import { parse as parseYaml } from 'yaml'
-import type { Post, PostFrontmatter } from '@/types/post'
+import type { PostFrontmatter, SerializedPost } from '@/types/post'
 
-// Parsed frontmatter and content from markdown file
+class FrontmatterValidationError extends Error {
+  filePath: string
+
+  constructor(message: string, filePath: string) {
+    super(`Frontmatter validation failed for ${filePath}: ${message}`)
+    this.name = 'FrontmatterValidationError'
+    this.filePath = filePath
+  }
+}
+
+const validateFrontmatter = (
+  frontmatter: Partial<PostFrontmatter> | null | undefined,
+  filePath: string
+): PostFrontmatter => {
+  if (!frontmatter) {
+    throw new FrontmatterValidationError(
+      'No frontmatter found. Please add YAML frontmatter with required fields (title, date, description)',
+      filePath
+    )
+  }
+
+  if (
+    typeof frontmatter.title !== 'string' ||
+    frontmatter.title.trim() === ''
+  ) {
+    throw new FrontmatterValidationError(
+      'Missing or invalid "title" field. Title must be a non-empty string',
+      filePath
+    )
+  }
+
+  const dateValue = frontmatter.date
+  const isValidDate =
+    typeof dateValue === 'string' ||
+    dateValue instanceof Date ||
+    (typeof dateValue === 'number' && !Number.isNaN(dateValue))
+
+  if (!isValidDate) {
+    throw new FrontmatterValidationError(
+      'Missing or invalid "date" field. Date must be a valid date string (e.g., "2025-12-05")',
+      filePath
+    )
+  }
+
+  if (
+    typeof frontmatter.description !== 'string' ||
+    frontmatter.description.trim() === ''
+  ) {
+    throw new FrontmatterValidationError(
+      'Missing or invalid "description" field. Description must be a non-empty string',
+      filePath
+    )
+  }
+
+  // Normalize date to Date object for consistent type handling
+  let parsedDate: Date
+  if (dateValue instanceof Date) {
+    parsedDate = dateValue
+  } else {
+    parsedDate = new Date(dateValue as string | number)
+    if (Number.isNaN(parsedDate.getTime())) {
+      throw new FrontmatterValidationError(
+        `Invalid date "${dateValue}". Please use a valid date format (e.g., "2025-12-05")`,
+        filePath
+      )
+    }
+  }
+
+  return {
+    title: frontmatter.title.trim(),
+    date: parsedDate,
+    description: frontmatter.description.trim(),
+    tags: Array.isArray(frontmatter.tags) ? frontmatter.tags : []
+  }
+}
+
 interface ParsedMarkdownFile {
   frontmatter: PostFrontmatter
   markdownBody: string
 }
 
-// Script configuration and paths
 const SCRIPT_DIRECTORY = path.dirname(fileURLToPath(import.meta.url))
 const BLOG_CONTENT_DIRECTORY = path.join(
   SCRIPT_DIRECTORY,
   '../src/content/blog'
 )
 
-const parseMarkdownFile = (rawFileContent: string): ParsedMarkdownFile => {
+const parseMarkdownFile = (
+  rawFileContent: string,
+  filePath: string
+): ParsedMarkdownFile => {
+  // Match YAML frontmatter delimited by --- markers
   const frontmatterPattern = /^---\n([\s\S]*?)\n---(?:\n|$)/
   const frontmatterMatch = rawFileContent.match(frontmatterPattern)
 
-  let parsedFrontmatter: PostFrontmatter = {
-    title: '',
-    date: '',
-    description: '',
-    tags: []
-  }
+  let parsedFrontmatter: PostFrontmatter
 
   let markdownContent = rawFileContent
 
-  if (frontmatterMatch != null) {
-    // Always remove frontmatter markers when they exist
-    markdownContent = rawFileContent.replace(frontmatterPattern, '')
+  if (frontmatterMatch == null) {
+    throw new FrontmatterValidationError(
+      'No frontmatter found. Please add YAML frontmatter with required fields (title, date, description)',
+      filePath
+    )
+  }
 
-    const frontmatterText = frontmatterMatch[1]
-    if (frontmatterText != null && frontmatterText.trim() !== '') {
-      try {
-        const parsed = parseYaml(frontmatterText) as Partial<PostFrontmatter>
+  markdownContent = rawFileContent.replace(frontmatterPattern, '')
 
-        // Validate and provide defaults for required fields
-        parsedFrontmatter = {
-          title: typeof parsed.title === 'string' ? parsed.title : '',
-          date:
-            typeof parsed.date === 'string' || parsed.date instanceof Date
-              ? parsed.date
-              : '',
-          description:
-            typeof parsed.description === 'string' ? parsed.description : '',
-          tags: Array.isArray(parsed.tags) ? parsed.tags : []
-        }
-      } catch {
-        // Treat invalid YAML as plain markdown to avoid build failures
-        console.warn(
-          'Warning: Invalid YAML in frontmatter, treating as plain markdown'
-        )
-      }
+  const frontmatterText = frontmatterMatch[1]
+  if (frontmatterText == null || frontmatterText.trim() === '') {
+    throw new FrontmatterValidationError(
+      'Frontmatter is empty. Please provide YAML frontmatter with required fields (title, date, description)',
+      filePath
+    )
+  }
+
+  try {
+    const parsed = parseYaml(frontmatterText) as Partial<PostFrontmatter>
+    parsedFrontmatter = validateFrontmatter(parsed, filePath)
+  } catch (error) {
+    if (error instanceof FrontmatterValidationError) {
+      throw error
     }
+    throw new FrontmatterValidationError(
+      `Invalid YAML in frontmatter: ${error instanceof Error ? error.message : String(error)}`,
+      filePath
+    )
   }
 
   return {
@@ -84,7 +158,6 @@ const discoverMarkdownFiles = (): string[] => {
       )
 
       if (entry.isDirectory()) {
-        // Support topic based organization with nested directories
         scanDirectoryRecursively(fullEntryPath, relativeEntryPath)
       } else if (entry.isFile() && entry.name.endsWith('.md')) {
         discoveredFiles.push(relativeEntryPath)
@@ -99,9 +172,10 @@ const discoverMarkdownFiles = (): string[] => {
 const generateContentLoaderModule = (markdownFilePaths: string[]): string => {
   const importStatements: string[] = []
   const moduleMappings: string[] = []
-  const processedBlogPosts: Post[] = []
+  const processedBlogPosts: SerializedPost[] = []
 
   for (const relativeFilePath of markdownFilePaths) {
+    // Sanitize file path to valid JS identifier for import variable
     const importVariableName =
       relativeFilePath.replace(/[^a-zA-Z0-9]/g, '_') + '_content'
     const viteImportPath = `@/content/blog/${relativeFilePath}?raw`
@@ -114,47 +188,62 @@ const generateContentLoaderModule = (markdownFilePaths: string[]): string => {
       `  '@/content/blog/${relativeFilePath}': ${importVariableName}`
     )
 
-    const absoluteFilePath = path.join(BLOG_CONTENT_DIRECTORY, relativeFilePath)
-    const rawFileContent = fs.readFileSync(absoluteFilePath, 'utf-8')
-    const parsedFile = parseMarkdownFile(rawFileContent)
+    try {
+      const absoluteFilePath = path.join(
+        BLOG_CONTENT_DIRECTORY,
+        relativeFilePath
+      )
+      const rawFileContent = fs.readFileSync(absoluteFilePath, 'utf-8')
+      const parsedFile = parseMarkdownFile(rawFileContent, relativeFilePath)
 
-    const pathSegments = relativeFilePath.split('/')
-    const topicFromPath = pathSegments[pathSegments.length - 2] ?? ''
-    const filename = pathSegments[pathSegments.length - 1] ?? ''
-    const slugFromFilename = filename.replace('.md', '')
+      const pathSegments = relativeFilePath.split('/')
+      // Extract topic from parent directory (e.g., 'css' from 'css/post.md')
+      const topicFromPath = pathSegments[pathSegments.length - 2] ?? ''
+      const filename = pathSegments[pathSegments.length - 1] ?? ''
+      const slugFromFilename = filename.replace('.md', '')
 
-    // Use 200 words per minute for reading time calculation
-    const wordCount =
-      parsedFile.markdownBody.trim() === ''
-        ? 0
-        : parsedFile.markdownBody
-            .split(/\s+/)
-            .filter(word => word.trim().length > 0).length
-    const estimatedReadingTimeMinutes =
-      wordCount === 0 ? 0 : Math.ceil(wordCount / 200)
-    const blogPost: Post = {
-      title: parsedFile.frontmatter.title,
-      date:
+      // Calculate reading time at 200 words per minute
+      const wordCount =
+        parsedFile.markdownBody.trim() === ''
+          ? 0
+          : parsedFile.markdownBody
+              .split(/\s+/)
+              .filter(word => word.trim().length > 0).length
+      const estimatedReadingTimeMinutes =
+        wordCount === 0 ? 0 : Math.ceil(wordCount / 200)
+
+      const dateValue =
         parsedFile.frontmatter.date instanceof Date
           ? parsedFile.frontmatter.date
-          : typeof parsedFile.frontmatter.date === 'string' &&
-              parsedFile.frontmatter.date.trim() !== ''
-            ? new Date(parsedFile.frontmatter.date)
-            : new Date(0), // Fallback to Unix epoch when date is empty or invalid
-      description: parsedFile.frontmatter.description,
-      tags: parsedFile.frontmatter.tags ?? [],
-      slug: slugFromFilename,
-      topic: topicFromPath,
-      content: parsedFile.markdownBody,
-      readingTime: estimatedReadingTimeMinutes
-    }
+          : new Date(parsedFile.frontmatter.date)
 
-    processedBlogPosts.push(blogPost)
+      const blogPost = {
+        title: parsedFile.frontmatter.title,
+        // Serialize date as ISO string for JSON compatibility
+        date: dateValue.toISOString(),
+        description: parsedFile.frontmatter.description,
+        tags: parsedFile.frontmatter.tags ?? [],
+        slug: slugFromFilename,
+        topic: topicFromPath,
+        content: parsedFile.markdownBody,
+        readingTime: estimatedReadingTimeMinutes
+      }
+
+      processedBlogPosts.push(blogPost)
+    } catch (error) {
+      if (error instanceof FrontmatterValidationError) {
+        console.error(`\n❌ ${error.message}\n`)
+        process.exit(1)
+      }
+      throw error
+    }
   }
 
   const generatedModuleContent = `// Auto-generated content imports - do not edit manually
 // Generated by scripts/generateContentImports.ts
 // This file provides type-safe access to all blog content at build time
+
+import type { SerializedPost } from '@/types/post'
 
 ${importStatements.join('\n')}
 
@@ -164,7 +253,8 @@ ${moduleMappings.join(',\n')}
 }
 
 // Processed blog posts with metadata and content
-export const processedPosts = ${JSON.stringify(processedBlogPosts, null, 2)} as const
+// Note: dates are serialized as ISO strings and must be converted to Date objects
+export const processedPosts: SerializedPost[] = ${JSON.stringify(processedBlogPosts, null, 2)} as const
 `
 
   return generatedModuleContent
