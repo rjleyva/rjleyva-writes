@@ -1,10 +1,11 @@
 import { StrictMode } from 'react'
+import { HelmetProvider } from '@dr.pogodin/react-helmet'
 import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router'
-import routes from './routes/routes'
-import './styles/globals.css'
 import { ThemeProvider } from './contexts/ThemeProvider'
+import routes from './routes/routes'
 import './utils/faviconManager'
+import './styles/globals.css'
 
 const router = createBrowserRouter(routes, {
   basename: '/'
@@ -18,8 +19,10 @@ if (!(rootElement instanceof HTMLElement)) {
 
 createRoot(rootElement).render(
   <StrictMode>
-    <ThemeProvider>
-      <RouterProvider router={router} />
-    </ThemeProvider>
+    <HelmetProvider>
+      <ThemeProvider>
+        <RouterProvider router={router} />
+      </ThemeProvider>
+    </HelmetProvider>
   </StrictMode>
 )
