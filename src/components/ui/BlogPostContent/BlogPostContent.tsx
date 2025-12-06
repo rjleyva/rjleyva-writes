@@ -37,7 +37,7 @@ const BlogPostContent = memo(
     }, [content])
 
     return (
-      <div className={styles['blog-post-content']}>
+      <div className={`${styles['blog-post-content']} markdown-content`}>
         {contentState.error != null ? (
           <div className={styles['blog-post-content__error']}>
             {contentState.error}
