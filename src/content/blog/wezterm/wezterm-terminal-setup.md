@@ -1,54 +1,88 @@
 ---
-title: My WezTerm Terminal Setup (Zen Mode)
+title: My WezTerm Terminal Setup
 date: 2025-12-05
-description: Strip away distractions and let your code shine.
+description: How I tuned my terminal for long, focused coding sessions by reducing visual noise and prioritizing ergonomics.
 tags: ['wezterm', 'terminal', 'productivity', 'setup']
 ---
 
-# Cutting the Noise
+# Finding Zen in My Terminal
 
-I spend hours in my terminal. Let's skip the `brew install` tutorial and jump straight into my questionable choices.
+I spend most of my day in the terminal. At first, I didn’t notice the small UI
+details that quietly distracted me—tab bars, window chrome, slight background
+clutter. Over time, I realized these little things were adding noise and making
+long coding sessions more tiring than they needed to be.
 
-## The Settings
+This is the story of how I stripped my terminal down to just what I need,
+creating a setup that lets me focus for hours without friction.
 
-- Keeps the interface distraction-free. I only focus on the current task.
+> This isn’t a “best practices” guide. It’s just what works for me.
+
+## Saying Goodbye to the Tab Bar
+
+Once I leaned on TMUX for splits and layouts, the tab bar became redundant. I
+turned it off:
 
 ```lua
 enable_tab_bar = false
 ```
 
-- Gives you just enough window frame to resize, but not enough to feel like your terminal is trying to compete with Photoshop. Minimalist vibes only.
+It was like decluttering my desk. Suddenly, there was nothing in my way but the
+text.
+
+## Window Chrome: Minimal but Practical
+
+I also wanted to keep the window frame minimal but practical. I don’t need full
+window chrome, just enough to resize the terminal when I need it:
 
 ```lua
 window_decorations = "RESIZE"
 ```
 
-- Adds a subtle macOS blur to your background. Makes your terminal feel dreamy and cinematic… like you're the lead in a hacker indie film nobody asked for.
+## A Subtle Blur for Separation (macOS)
+
+On macOS, I added a subtle blur behind the terminal. I experimented with
+transparency and different blur levels until I landed on something gentle:
 
 ```lua
 macos_window_background_blur = 10
 ```
 
-- Skip the transparency. My GPU doesn't need extra cardio just so my terminal can cosplay as glass.
+It gives a slight separation from the desktop without making the text fuzzy—just
+enough breathing room to reduce eye fatigue.
+
+## Full Opacity for Comfort
+
+I used to play with transparency, but in the end, full opacity won. The text
+feels more consistent and easier on the eyes:
 
 ```lua
-window_background_opacity = 1.0,
+window_background_opacity = 1.0
 ```
 
-- Font and size that actually respect your eyes—big enough for long sessions.
+## Choosing a Font That Works
+
+Fonts are surprisingly important. I went with Lilex Nerd Font because it’s
+readable and has great glyph coverage. I also bumped the size up—comfort over
+cramming as many lines as possible:
 
 ```lua
 font = wezterm.font_with_fallback({ "Lilex Nerd Font" })
 font_size = 18
 ```
 
-- Scrollback lines set to 10,000 because logs have commitment issues. Sometimes they stretch forever and you just want to find that one typo without a time machine.
+## Scrollback That Actually Works
+
+Scrollback is another small tweak that makes a big difference. A deeper buffer
+means I can review long logs or retrace commands without frustration:
 
 ```lua
 scrollback_lines = 10000
 ```
 
-- Colors designed for long ChatGPT sessions... I mean coding sessions.
+## Colors That Don’t Tire Your Eyes
+
+Finally, colors. I use the solarized-osaka palette because it’s easy on the eyes
+for long sessions. Nothing flashy, nothing harsh:
 
 ```lua
 colors = {
@@ -86,9 +120,7 @@ colors = {
 },
 ```
 
-# Copy and Paste
-
-Here's the full setup in case you just want to copy and go.
+## The Full Zen Configuration
 
 ```lua
 local wezterm = require("wezterm")
@@ -142,8 +174,10 @@ M.spec = {
 return M.spec
 ```
 
----
+Over time, I realized that small adjustments—fonts, colors, scrollback, even
+subtle blur—compound in impact. Each tweak reduces friction, letting the terminal
+fade into the background so I can focus on code.
 
-_Crafted with questionable coffee decisions and a healthy disregard for transparency._
-
-_Generated with help from [ChatGPT](https://chat.openai.com)_ ooppsss.
+This setup is my “zen mode.” It’s not perfect and it will probably evolve, but
+for now, it transforms the terminal from a tool I wrestle with into a space I can
+inhabit for hours, fully immersed in work.
