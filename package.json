@@ -8,8 +8,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "node scripts/generateContentImports.ts && tsc && vite build",
-    "generate-content": "node scripts/generateContentImports.ts",
+    "build": "tsx scripts/generateContentImports.ts && tsc && vite build",
+    "generate-content": "tsx scripts/generateContentImports.ts",
     "preview": "vite preview",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
