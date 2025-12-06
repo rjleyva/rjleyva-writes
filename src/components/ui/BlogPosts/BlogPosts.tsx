@@ -1,35 +1,64 @@
 import type React from 'react'
 import { useMemo, useState } from 'react'
+import { Helmet } from '@dr.pogodin/react-helmet'
 import { useGetPosts } from '@/hooks/useBlog'
+import { usePageTitle } from '@/hooks/usePageTitle'
 import type { Post } from '@/types/post'
+import { getTopicDisplayName } from '@/utils/blogUtils'
 import BlogPostsGrid from '../BlogPostsGrid/BlogPostsGrid'
-import BlogPostsHeader from '../BlogPostsHeader/BlogPostsHeader'
 import BlogPostsSidebar from '../BlogPostsSidebar/BlogPostsSideBar'
+import PostsListingHeader from '../PostsListingHeader/PostsListingHeader'
 import styles from './blog-posts.module.css'
+
+const groupPostsByTopic = (posts: Post[]): Record<string, Post[]> => {
+  const postsGroupedByTopic: Record<string, Post[]> = {}
+
+  for (const post of posts) {
+    const topic = post.topic
+    postsGroupedByTopic[topic] ??= []
+    postsGroupedByTopic[topic].push(post)
+  }
+
+  return postsGroupedByTopic
+}
 
 const BlogPosts = (): React.JSX.Element => {
   const { posts } = useGetPosts()
   const [selectedTopic, setSelectedTopic] = useState<string | null>(null)
 
   const postsByTopic = useMemo(() => {
-    return posts.reduce(
-      (acc, post) => {
-        const topic = post.topic
-        const existingPosts = acc[topic] ?? []
-        acc[topic] = [...existingPosts, post]
-        return acc
-      },
-      {} as Record<string, Post[]>
-    )
+    return groupPostsByTopic(posts)
   }, [posts])
 
-  const availableTopics = Object.keys(postsByTopic).sort()
+  const availableTopics = useMemo(() => {
+    return Object.keys(postsByTopic).sort()
+  }, [postsByTopic])
 
-  const displayedPosts =
-    selectedTopic != null ? (postsByTopic[selectedTopic] ?? []) : posts
+  const displayedPosts = useMemo(() => {
+    if (selectedTopic == null) {
+      return posts
+    }
+
+    const topicPosts = postsByTopic[selectedTopic]
+    return topicPosts ?? []
+  }, [selectedTopic, posts, postsByTopic])
+
+  const pageTitle = usePageTitle(
+    selectedTopic != null
+      ? `RJ Leyva's Patterns, problems, and progress with ${getTopicDisplayName(selectedTopic)}`
+      : "RJ Leyva's Blog Page"
+  )
 
   return (
     <div className={styles['blog-posts']}>
+      <Helmet>
+        <title>{pageTitle}</title>
+        <meta
+          name="description"
+          content="Browse all blog posts by RJ Leyva on web development insights."
+        />
+        <link rel="canonical" href="https://rjleyva.dev/blog" />
+      </Helmet>
       <BlogPostsSidebar
         selectedTopic={selectedTopic}
         availableTopics={availableTopics}
@@ -39,7 +68,7 @@ const BlogPosts = (): React.JSX.Element => {
       />
 
       <main className={styles['blog-posts__content']}>
-        <BlogPostsHeader selectedTopic={selectedTopic} />
+        <PostsListingHeader selectedTopic={selectedTopic} />
 
         <BlogPostsGrid
           displayedPosts={displayedPosts}
