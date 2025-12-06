@@ -51,15 +51,7 @@ const BlogContentRenderer = memo(
 BlogContentRenderer.displayName = 'BlogContentRenderer'
 
 const BlogPage = (): React.JSX.Element => {
-  const { post, loading, error } = useGetPost()
-
-  if (loading) {
-    return (
-      <article>
-        <div>Loading post...</div>
-      </article>
-    )
-  }
+  const { post, error } = useGetPost()
 
   if (error != null || !post) {
     return (
