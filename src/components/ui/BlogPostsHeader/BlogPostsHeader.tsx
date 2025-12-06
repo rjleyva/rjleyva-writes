@@ -19,8 +19,8 @@ const BlogPostsHeader = ({
       </h1>
       <p className={styles['blog-posts-header__description']}>
         {displayName != null
-          ? `Learn about ${displayName.toLowerCase()} concepts, implementations, and best practices.`
-          : 'Comprehensive guides and tutorials covering development topics, tools, and techniques.'}
+          ? `Patterns, problems, and progress with ${displayName.toLowerCase()}.`
+          : 'My thoughts, experiments, and real world code.'}
       </p>
     </header>
   )
