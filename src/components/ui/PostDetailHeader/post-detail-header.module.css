@@ -1,0 +1,36 @@
+.post-detail-header {
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+.post-detail-header__title {
+  margin: 4rem auto 2rem;
+}
+
+.post-detail-header__metadata {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  flex-wrap: wrap;
+}
+
+.post-detail-header__date,
+.post-detail-header__reading-time {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+@media (max-width: 767px) {
+  .post-detail-header__title {
+    font-size: clamp(2rem, 6vw, 3rem);
+  }
+
+  .post-detail-header__metadata {
+    font-size: 0.8rem;
+    gap: 1rem;
+  }
+}
