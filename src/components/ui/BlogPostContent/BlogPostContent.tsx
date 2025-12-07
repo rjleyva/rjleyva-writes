@@ -1,6 +1,7 @@
 import type React from 'react'
-import { memo, useEffect, useRef, useState } from 'react'
+import { memo, useEffect, useMemo, useRef, useState } from 'react'
 import { renderMarkdown } from '@/services/markdownRenderingService'
+import { getContentHash } from '@/utils/contentHash'
 import styles from './blog-post-content.module.css'
 
 interface BlogPostContentProps {
@@ -14,9 +15,10 @@ const BlogPostContent = memo(
       error: string | null
     }>({ content: null, error: null })
     const currentContentRef = useRef<string>('')
+    const contentHash = useMemo(() => getContentHash(content), [content])
 
     useEffect(() => {
-      const contentKey = content
+      const contentKey = contentHash
       currentContentRef.current = contentKey
 
       renderMarkdown(content)
@@ -34,7 +36,7 @@ const BlogPostContent = memo(
             })
           }
         })
-    }, [content])
+    }, [content, contentHash])
 
     return (
       <div className={`${styles['blog-post-content']} markdown-content`}>
