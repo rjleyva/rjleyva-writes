@@ -42,7 +42,7 @@ const RouteErrorBoundary = (): React.JSX.Element => {
             Refresh Page
           </button>
         </div>
-        {import.meta.env.MODE === 'development' && error && (
+        {import.meta.env.MODE === 'development' && (
           <details className={styles['error-boundary__details']}>
             <summary className={styles['error-boundary__summary']}>
               Error Details (Development Only)
