@@ -1,5 +1,5 @@
 import type React from 'react'
-import { useEffect, useState } from 'react'
+import { useLayoutEffect, useState } from 'react'
 import { DEFAULT_THEME, THEME_STORAGE_KEY } from '@/constants/theme'
 import { THEMES } from '@/types/theme'
 import type { Theme, ThemeContextType } from '@/types/theme'
@@ -28,7 +28,7 @@ export const ThemeProvider = ({
     return DEFAULT_THEME
   })
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const root = document.documentElement
     root.setAttribute('data-theme', theme)
 
