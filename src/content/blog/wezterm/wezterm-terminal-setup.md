@@ -29,7 +29,7 @@ enable_tab_bar = false
 It was like decluttering my desk. Suddenly, there was nothing in my way but the
 text.
 
-## Window Chrome: Minimal but Practical
+## Minimal but Practical
 
 I also wanted to keep the window frame minimal but practical. I don’t need full
 window chrome, just enough to resize the terminal when I need it:
