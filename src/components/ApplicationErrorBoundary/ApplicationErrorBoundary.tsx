@@ -46,7 +46,9 @@ export class ApplicationErrorBoundary extends Component<
       return (
         <div className={styles['error-boundary']}>
           <div className={styles['error-boundary__content']}>
-            <h1 className={styles['error-boundary__title']}>
+            <h1
+              className={`${styles['error-boundary__title']} title-large-gradient`}
+            >
               The application encountered an unexpected error
             </h1>
             <p className={styles['error-boundary__message']}>
@@ -69,7 +71,7 @@ export class ApplicationErrorBoundary extends Component<
                 Refresh Page
               </button>
             </div>
-            {process.env['NODE_ENV'] === 'development' && this.state.error && (
+            {import.meta.env.MODE === 'development' && this.state.error && (
               <details className={styles['error-boundary__details']}>
                 <summary className={styles['error-boundary__summary']}>
                   Error Details (Development Only)
