@@ -1,6 +1,6 @@
 import { lazy, Suspense } from 'react'
 import type { RouteObject } from 'react-router'
-import RouteErrorBoundary from '@/components/ApplicationErrorBoundary/RouteErrorBoundary'
+import RouteErrorBoundary from '@/components/RouteErrorBoundary/RouteErrorBoundary'
 import Spinner from '@/components/ui/LoadingSpinner/LoadingSpinner'
 import HomePage from '@/pages/home/HomePage'
 import MainLayout from '../layouts/MainLayout'
