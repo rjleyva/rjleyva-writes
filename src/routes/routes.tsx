@@ -1,5 +1,6 @@
 import { lazy, Suspense } from 'react'
 import type { RouteObject } from 'react-router'
+import RouteErrorBoundary from '@/components/ApplicationErrorBoundary/RouteErrorBoundary'
 import Spinner from '@/components/ui/LoadingSpinner/LoadingSpinner'
 import HomePage from '@/pages/home/HomePage'
 import MainLayout from '../layouts/MainLayout'
@@ -10,6 +11,7 @@ const BlogPosts = lazy(() => import('@/components/ui/BlogPosts/BlogPosts'))
 const routes: RouteObject[] = [
   {
     element: <MainLayout />,
+    errorElement: <RouteErrorBoundary />,
     children: [
       {
         path: '/',
