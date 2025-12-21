@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 import { useParams } from 'react-router'
 import { getAllPosts, getPostBySlug } from '@/lib/blogContentApi'
 import type { Post } from '@/types/post'
+import { handleError } from '@/utils/errorHandler'
 
 interface UsePostsReturn {
   posts: Post[]
@@ -20,8 +21,8 @@ export const useGetPosts = (limit?: number): UsePostsReturn => {
       const limitedPosts = limit != null ? allPosts.slice(0, limit) : allPosts
       return { posts: limitedPosts, error: null }
     } catch (err) {
-      console.error('Error loading posts:', err)
-      return { posts: [], error: 'Failed to load posts' }
+      const appError = handleError(err, 'useGetPosts')
+      return { posts: [], error: appError.message }
     }
   }, [limit])
 
@@ -40,8 +41,8 @@ export const useGetPost = (): UsePostReturn => {
       const postData = getPostBySlug(topic, slug)
       return { post: postData, error: null }
     } catch (err) {
-      console.error('Error loading post:', err)
-      return { post: null, error: 'Failed to load post' }
+      const appError = handleError(err, 'useGetPost')
+      return { post: null, error: appError.message }
     }
   }, [topic, slug])
 
