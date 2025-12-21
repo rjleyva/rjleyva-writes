@@ -1,5 +1,6 @@
 import type React from 'react'
 import { useNavigate, useRouteError } from 'react-router'
+import { env } from '@/utils/config'
 import styles from './route-error-boundary.module.css'
 
 const RouteErrorBoundary = (): React.JSX.Element => {
@@ -42,7 +43,7 @@ const RouteErrorBoundary = (): React.JSX.Element => {
             Refresh Page
           </button>
         </div>
-        {import.meta.env.MODE === 'development' && (
+        {env.isDevelopment && (
           <details className={styles['error-boundary__details']}>
             <summary className={styles['error-boundary__summary']}>
               Error Details (Development Only)
