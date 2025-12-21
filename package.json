@@ -4,7 +4,7 @@
   "description": "RJ Leyva's personal blog documenting web development insights through writing.",
   "license": "MIT",
   "private": true,
-  "version": "0.0.1",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
