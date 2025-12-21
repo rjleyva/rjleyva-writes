@@ -1,5 +1,7 @@
 import { Component } from 'react'
 import type { ErrorInfo, ReactNode } from 'react'
+import { createLogger } from '@/utils/logger'
+import { env } from '@/utils/config'
 import styles from './application-error-boundary.module.css'
 
 interface ErrorBoundaryProps {
@@ -26,7 +28,8 @@ export class ApplicationErrorBoundary extends Component<
   }
 
   override componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
-    console.error('Error caught by ErrorBoundary:', error, errorInfo)
+    const logger = createLogger('ApplicationErrorBoundary')
+    logger.error('Error caught by ErrorBoundary', { error, errorInfo })
   }
 
   private attemptRecovery = (): void => {
@@ -71,7 +74,7 @@ export class ApplicationErrorBoundary extends Component<
                 Refresh Page
               </button>
             </div>
-            {import.meta.env.MODE === 'development' && this.state.error && (
+            {env.isDevelopment && this.state.error && (
               <details className={styles['error-boundary__details']}>
                 <summary className={styles['error-boundary__summary']}>
                   Error Details (Development Only)
