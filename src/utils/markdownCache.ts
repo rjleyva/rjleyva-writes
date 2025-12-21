@@ -1,4 +1,6 @@
 import type { RenderedContent } from '@/services/markdownRenderingService'
+import { config } from './config'
+import { createLogger } from './logger'
 
 interface CacheEntry {
   content: RenderedContent
@@ -10,12 +12,13 @@ interface CacheEntry {
 class MarkdownLRUCache {
   private cache = new Map<string, CacheEntry>()
   private readonly maxSize: number
+  private logger = createLogger('MarkdownCache')
 
   constructor(maxSize = 50) {
     this.maxSize = maxSize
 
-    // Development memory monitoring
-    if (import.meta.env.DEV) {
+    // Development memory monitoring (only if cache is enabled)
+    if (config.features.enableCache && import.meta.env.DEV) {
       setInterval(() => {
         let totalChars = 0
         let itemCount = this.cache.size
@@ -32,18 +35,18 @@ class MarkdownLRUCache {
 
         // Estimate MB (2 bytes/character on average)
         const sizeMB = ((totalChars * 2) / 1024 / 1024).toFixed(2)
-        console.log(
-          `[Cache] ${itemCount}/${this.maxSize} items, ~${sizeMB}MB estimated`
+        this.logger.cache(
+          `${itemCount}/${this.maxSize} items, ~${sizeMB}MB estimated`
         )
       }, 30000) // Every 30 seconds
     }
 
     // Development cache invalidation on HMR
-    if (import.meta.env.DEV) {
+    if (config.features.enableCache && import.meta.env.DEV) {
       try {
         if (import.meta.hot) {
           import.meta.hot.accept(() => {
-            console.log('[Cache] Clearing due to HMR update')
+            this.logger.cache('Clearing due to HMR update')
             this.clear()
           })
         }
