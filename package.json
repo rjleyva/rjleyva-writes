@@ -9,13 +9,15 @@
   "scripts": {
     "dev": "vite",
     "build": "tsx scripts/generateContentImports.ts && tsc && vite build",
+    "build:prod": "VITE_APP_ENV=production pnpm run build",
     "generate-content": "tsx scripts/generateContentImports.ts",
     "preview": "vite preview",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write \"src/**/*.{ts,tsx,css,json}\"",
     "format:check": "prettier --check \"src/**/*.{ts,tsx,css,json}\"",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "setup": "node -e \"if (!require('fs').existsSync('.env')) { require('fs').copyFileSync('.env.example', '.env'); console.log('.env file created from .env.example'); } else { console.log('.env file already exists'); }\""
   },
   "dependencies": {
     "@dr.pogodin/react-helmet": "^3.0.4",
