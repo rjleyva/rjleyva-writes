@@ -2,6 +2,7 @@ import type React from 'react'
 import { memo, useEffect, useMemo, useRef, useState } from 'react'
 import { renderMarkdown } from '@/services/markdownRenderingService'
 import { getContentHash } from '@/utils/contentHash'
+import { handleError } from '@/utils/errorHandler'
 import styles from './blog-post-content.module.css'
 
 interface BlogPostContentProps {
@@ -29,10 +30,10 @@ const BlogPostContent = memo(
         })
         .catch(err => {
           if (currentContentRef.current === contentKey) {
-            console.error('Failed to render markdown:', err)
+            const appError = handleError(err, 'BlogPostContent.renderMarkdown')
             setContentState({
               content: null,
-              error: 'Failed to render content'
+              error: appError.message
             })
           }
         })
