@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { handleError } from '@/utils/errorHandler'
 
 interface UseClipboardReturn {
   copied: boolean
@@ -32,9 +33,8 @@ export const useClipboard = (): UseClipboardReturn => {
         timeoutRef.current = null
       }, 2000)
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Failed to copy'
-      setError(errorMessage)
-      console.error('Failed to copy text:', err)
+      const appError = handleError(err, 'copyToClipboard')
+      setError(appError.message)
     }
   }, [])
 
