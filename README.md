@@ -52,4 +52,4 @@ RJ Leyva's personal blog, documenting web development insights through writing.
 
 MIT License.
 
-If you find this project helpful, please consider giving it a ⭐.
+> ** Content Notice:** The blog posts in `src/content/blog/` are original content. Please do not copy or reuse them without proper attribution and permission.
