@@ -57,7 +57,7 @@ const BlogPosts = (): React.JSX.Element => {
           name="description"
           content="Browse all blog posts by RJ Leyva on web development insights."
         />
-        <link rel="canonical" href="https://rjleyva.dev/blog" />
+        <link rel="canonical" href="https://rjleyva-writes.pages.dev/blog" />
       </Helmet>
       <BlogPostsSidebar
         selectedTopic={selectedTopic}
