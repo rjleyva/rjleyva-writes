@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://rjleyva.dev/sitemap.xml
+Sitemap: https://rjleyva-writes.pages.dev/sitemap.xml
