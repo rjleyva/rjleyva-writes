@@ -6,6 +6,7 @@ import PostDetailHeader from '@/components/ui/PostDetailHeader/PostDetailHeader'
 import { useGetPost } from '@/hooks/useBlog'
 import { usePageTitle } from '@/hooks/usePageTitle'
 import { getTopicDisplayName } from '@/utils/blogUtils'
+import { config } from '@/utils/config'
 
 const BlogPage = (): React.JSX.Element => {
   const { post, error } = useGetPost()
@@ -40,13 +41,13 @@ const BlogPage = (): React.JSX.Element => {
         <meta property="og:type" content="article" />
         <meta
           property="og:url"
-          content={`https://rjleyva-writes.pages.dev/blog/${post.topic}/${post.slug}`}
+          content={`${config.urls.production}/blog/${post.topic}/${post.slug}`}
         />
         <meta property="og:site_name" content="RJ Leyva's Blog" />
 
         <link
           rel="canonical"
-          href={`https://rjleyva-writes.pages.dev/blog/${post.topic}/${post.slug}`}
+          href={`${config.urls.production}/blog/${post.topic}/${post.slug}`}
         />
 
         {/* JSON-LD Structured Data */}
@@ -68,7 +69,7 @@ const BlogPage = (): React.JSX.Element => {
             dateModified: post.date.toISOString(),
             mainEntityOfPage: {
               '@type': 'WebPage',
-              '@id': `https://rjleyva-writes.pages.dev/blog/${post.topic}/${post.slug}`
+              '@id': `${config.urls.production}/blog/${post.topic}/${post.slug}`
             },
             articleSection: getTopicDisplayName(post.topic),
             keywords: post.tags.join(', ')
