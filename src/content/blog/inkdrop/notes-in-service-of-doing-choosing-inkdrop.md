@@ -1,7 +1,7 @@
 ---
-title: Notes in Service of Doing—Choosing Inkdrop
+title: 'Notes in Service of Doing: Choosing Inkdrop'
 date: 2025-12-21
-description: In this post, I want to share why I chose [Inkdrop](https://www.inkdrop.app/) over tools like Obsidian and Notion—not because they fall short, but because of how I work as a solutions consultant and a part‑time web developer.
+description: In this post, I want to share why I chose Inkdrop over tools like Obsidian and Notion—not because they fall short, but because of how I work as a solutions consultant and a part‑time web developer.
 
 tags:
   [
