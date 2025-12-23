@@ -5,6 +5,7 @@
 import type { SerializedPost } from '@/types/post'
 
 import css_fix_social_icon_flicker_on_theme_toggle_md_content from '@/content/blog/css/fix-social-icon-flicker-on-theme-toggle.md?raw'
+import inkdrop_how_i_learn_new_framework_md_content from '@/content/blog/inkdrop/how-i-learn-new-framework.md?raw'
 import inkdrop_notes_in_service_of_doing_choosing_inkdrop_md_content from '@/content/blog/inkdrop/notes-in-service-of-doing-choosing-inkdrop.md?raw'
 import neovim_native_lsp_setup_in_neovim_0_11__on_macos_md_content from '@/content/blog/neovim/native-lsp-setup-in-neovim-0.11+-on-macos.md?raw'
 import wezterm_wezterm_terminal_setup_md_content from '@/content/blog/wezterm/wezterm-terminal-setup.md?raw'
@@ -12,6 +13,7 @@ import wezterm_wezterm_terminal_setup_md_content from '@/content/blog/wezterm/we
 // Raw markdown content accessible by file path
 export const contentModules = {
   '@/content/blog/css/fix-social-icon-flicker-on-theme-toggle.md': css_fix_social_icon_flicker_on_theme_toggle_md_content,
+  '@/content/blog/inkdrop/how-i-learn-new-framework.md': inkdrop_how_i_learn_new_framework_md_content,
   '@/content/blog/inkdrop/notes-in-service-of-doing-choosing-inkdrop.md': inkdrop_notes_in_service_of_doing_choosing_inkdrop_md_content,
   '@/content/blog/neovim/native-lsp-setup-in-neovim-0.11+-on-macos.md': neovim_native_lsp_setup_in_neovim_0_11__on_macos_md_content,
   '@/content/blog/wezterm/wezterm-terminal-setup.md': wezterm_wezterm_terminal_setup_md_content
@@ -36,9 +38,24 @@ export const processedPosts: SerializedPost[] = [
     "readingTime": 2
   },
   {
-    "title": "Notes in Service of Doing—Choosing Inkdrop",
+    "title": "How I Learn New Framework",
+    "date": "2025-12-22T00:00:00.000Z",
+    "description": "As a full time Solutions Consultant and self-taught developer, one of the hardest challenges is keeping pace with the ever-changing world of web development while still grounding myself in the fundamentals.",
+    "tags": [
+      "learning",
+      "productivity",
+      "personal growth",
+      "developer journey"
+    ],
+    "slug": "how-i-learn-new-framework",
+    "topic": "inkdrop",
+    "content": "\n## What Drives Me\n\nEvery time a new framework emerges, it shines like a freshly polished tool in a crowded workshop. Its simplicity, elegance, and promise of quick mastery can easily lure beginners like me. I’ve felt that pull, the temptation to dive in headfirst simply because it looks easy to use.\n\nBut I’ve learned to pause. Instead of chasing novelty for its own sake, I ask myself: What tangible benefits does this bring? Which problems does it truly solve compared to my current workflow? Why choose this path over another? And—most importantly—when does it make sense for the project I’m building?\n\nThis approach turns learning from a superficial sprint into a deliberate, meaningful journey. It’s less about following trends and more about understanding purpose.\n\n## Learning the Patterns\n\nWhen I dive into a new framework, one of the first things I notice is the syntax—the patterns, the way pieces fit together. As a beginner, logic often feels like a foreign language. I’ve learned that it’s okay to feel lost at the start. That confusion, frustrating as it can be, is also the part that makes the journey thrilling: the puzzle of picking up tiny fragments of information and slowly connecting them into something meaningful.\n\nI’ve accepted that there’s no shortcut. When I get stuck, I turn to ChatGPT, asking it to explain things in beginner-friendly ways, often with analogies I can relate to. I don’t shy away from the “dumb” questions: What is a React hook? Why do some YouTubers use Zustand? Can I skip React hooks and jump straight to Zustand?\n\nSure, my questions reveal my confusion—but over days, the pieces start to click. I begin to see why Zustand is not a replacement but an essential tool, and why Zustand becomes valuable when managing complex state, like comments and reactions on my blog. Simple tasks like theming still suit useState, but when coordination grows tricky, a tool like Zustand turns chaos into clarity. Slowly, I begin to understand what “complicated” really means in the context of code—and why learning the basics matters before chasing the next shiny tool.\n\n## We Humans Are Not Perfect\n\nAnother crucial part of my learning journey is embracing imperfection. I’ve learned that it’s not enough to simply jot down solutions—I need to capture the confusion, the “why” behind each step, and the thoughts that swirl around my head as I try to make sense of it all.\n\nThis is where [Inkdrop](https://www.inkdrop.app/) comes in. It’s a note-taking app that doesn’t distract me, doesn’t pull me away from the flow of learning. Instead, it gives me focus. It allows me to write freely, to explore my thoughts, and to slowly connect the dots at my own pace. Less friction, more space for curiosity—and more time to truly understand.\n\n## The Journey Matters More Than the Tools\n\nAt the end of the day, it’s not about the newest framework, the slickest library, or the trendiest tool. It’s about the process—the curiosity, the mistakes, the small victories, and the slow, steady understanding that comes from embracing the unknown.\n\nAs a full time Solutions Consultant and self-taught developer, every confusion is a teacher, every “why” is a doorway, and every note I take is a map I can revisit later. The frameworks will change, the syntax will evolve, but the way I learn, reflect, and connect the dots—that is what lasts.\n\nFrameworks change fast. Learning how you learn is the part that compounds.\n",
+    "readingTime": 3
+  },
+  {
+    "title": "Notes in Service of Doing: Choosing Inkdrop",
     "date": "2025-12-21T00:00:00.000Z",
-    "description": "In this post, I want to share why I chose [Inkdrop](https://www.inkdrop.app/) over tools like Obsidian and Notion—not because they fall short, but because of how I work as a solutions consultant and a part‑time web developer.",
+    "description": "In this post, I want to share why I chose Inkdrop over tools like Obsidian and Notion—not because they fall short, but because of how I work as a solutions consultant and a part‑time web developer.",
     "tags": [
       "inkdrop",
       "note-taking",
