@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <!-- Homepage -->
   <url>
-    <loc>https://rjleyva.dev/</loc>
+    <loc>https://rjleyva-writes.pages.dev/</loc>
     <lastmod>2025-12-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
@@ -10,7 +10,7 @@
   
   <!-- Blog listing page -->
   <url>
-    <loc>https://rjleyva.dev/blog</loc>
+    <loc>https://rjleyva-writes.pages.dev/blog</loc>
     <lastmod>2025-12-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
@@ -18,29 +18,36 @@
   
   <!-- Individual blog posts -->
   <url>
-    <loc>https://rjleyva.dev/blog/css/fix-social-icon-flicker-on-theme-toggle</loc>
+    <loc>https://rjleyva-writes.pages.dev/blog/css/fix-social-icon-flicker-on-theme-toggle</loc>
     <lastmod>2025-12-04</lastmod>
     <changefreq>never</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://rjleyva.dev/blog/inkdrop/notes-in-service-of-doing-choosing-inkdrop</loc>
+    <loc>https://rjleyva-writes.pages.dev/blog/inkdrop/notes-in-service-of-doing-choosing-inkdrop</loc>
     <lastmod>2025-12-21</lastmod>
     <changefreq>never</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://rjleyva.dev/blog/neovim/native-lsp-setup-in-neovim-0.11+-on-macos</loc>
+    <loc>https://rjleyva-writes.pages.dev/blog/neovim/native-lsp-setup-in-neovim-0.11+-on-macos</loc>
     <lastmod>2025-12-20</lastmod>
     <changefreq>never</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://rjleyva.dev/blog/wezterm/wezterm-terminal-setup</loc>
+    <loc>https://rjleyva-writes.pages.dev/blog/wezterm/wezterm-terminal-setup</loc>
     <lastmod>2025-12-05</lastmod>
+    <changefreq>never</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://rjleyva-writes.pages.dev/blog/inkdrop/how-i-learn-new-framework</loc>
+    <lastmod>2025-12-22</lastmod>
     <changefreq>never</changefreq>
     <priority>0.8</priority>
   </url>
