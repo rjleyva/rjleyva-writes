@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RJ Leyva's Blog - RSS Feed</title>
+  <style>
+    :root {
+  color-scheme: light dark;
+}
+
+:root,
+[data-theme='light'] {
+  --base: #fafafa;
+  --surface: #ffffff;
+  --surface-secondary: #f8f9fa;
+  --surface-tertiary: #f1f3f4;
+  --overlay: #f2f2f2;
+  --border: #e5e5e5;
+  --border-subtle: #f0f0f0;
+  --text: #1c1c1c;
+  --text-muted: #5f5f5f;
+  --text-secondary: #404040;
+  --text-code: #0f0f0f;
+  --text-code-bg: #e8e8e8;
+  --code-keyword: #0000ff;
+  --code-string: #008000;
+  --code-comment: #808080;
+  --code-function: #795e26;
+  --code-number: #09885a;
+  --accent: #3a70d6;
+  --accent-rgb: 58, 112, 214;
+  --accent-muted: #8eb2ec;
+  --shadow-color: rgba(0, 0, 0, 0.06);
+  --glass-light: rgba(255, 255, 255, 0.08);
+  --glass-dark: rgba(0, 0, 0, 0.1);
+  --color-white: #ffffff;
+  --font-family:
+    'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    sans-serif;
+}
+
+[data-theme='dark'] {
+  --base: #0f0f10;
+  --surface: #161617;
+  --surface-secondary: #1a1a1b;
+  --surface-tertiary: #1f1f20;
+  --overlay: #1d1d1e;
+  --border: #2a2a2b;
+  --border-subtle: #252526;
+  --text: #e8e8e8;
+  --text-muted: #9c9c9c;
+  --text-secondary: #c8c8c8;
+  --text-code: #f0f0f0;
+  --text-code-bg: #2a2a2b;
+  --code-keyword: #569cd6;
+  --code-string: #ce9178;
+  --code-comment: #6a9955;
+  --code-function: #dcdcaa;
+  --code-number: #b5cea8;
+  --accent: #6ea8ff;
+  --accent-rgb: 110, 168, 255;
+  --accent-muted: #3c6fb3;
+  --shadow-color: rgba(0, 0, 0, 0.5);
+  --glass-light: rgba(255, 255, 255, 0.08);
+  --glass-dark: rgba(0, 0, 0, 0.1);
+  --color-white: #ffffff;
+  --font-family:
+    'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --base: #0f0f10;
+    --surface: #161617;
+    --surface-secondary: #1a1a1b;
+    --surface-tertiary: #1f1f20;
+    --overlay: #1d1d1e;
+    --border: #2a2a2b;
+    --border-subtle: #252526;
+    --text: #e8e8e8;
+    --text-muted: #9c9c9c;
+    --text-secondary: #c8c8c8;
+    --text-code: #f0f0f0;
+    --text-code-bg: #2a2a2b;
+    --code-keyword: #569cd6;
+    --code-string: #ce9178;
+    --code-comment: #6a9955;
+    --code-function: #dcdcaa;
+    --code-number: #b5cea8;
+    --accent: #6ea8ff;
+    --accent-rgb: 110, 168, 255;
+    --accent-muted: #3c6fb3;
+    --shadow-color: rgba(0, 0, 0, 0.5);
+    --glass-light: rgba(255, 255, 255, 0.08);
+    --glass-dark: rgba(0, 0, 0, 0.1);
+    --glass-dark-hover: rgba(0, 0, 0, 0.2);
+    --color-white: #ffffff;
+    --font-family:
+      'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+      sans-serif;
+  }
+}
+
+    @layer tokens {
+  :root {
+    --border-radius-extra-small: 0.25rem;
+    --border-radius-small: 0.375rem;
+    --border-radius-medium: 0.5rem;
+    --border-radius-large: 1.5rem;
+  }
+
+  :root {
+    --transition-duration-fast: 0.2s ease-in-out;
+    --transition-duration-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-duration-slow: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  :root {
+    --shadow-elevation-small: 0 0.25rem 1rem var(--shadow-color);
+    --shadow-elevation-medium: 0 0.5rem 2rem var(--shadow-color);
+  }
+
+  :root {
+    --glass-background: linear-gradient(
+      135deg,
+      var(--surface) 0%,
+      var(--glass-light) 100%
+    );
+    --glass-background-subtle: linear-gradient(
+      135deg,
+      var(--overlay) 0%,
+      var(--glass-light) 100%
+    );
+  }
+
+  :root {
+    --backdrop-blur-subtle: blur(0.25rem);
+    --backdrop-blur-strong: blur(1.5rem);
+  }
+
+  :root {
+    --border-width-hairline: 0.0625rem;
+    --outline-width-focus: 0.125rem;
+    --outline-offset-focus: 0.125rem;
+  }
+
+  :root {
+    --text-gradient-primary: linear-gradient(
+      135deg,
+      var(--text) 0%,
+      var(--accent) 100%
+    );
+  }
+
+  :root {
+    --hover-scale-interactive: scale(1.05);
+    --hover-scale-subtle: scale(1.02);
+    --hover-translate-y-lift: translateY(-0.5rem);
+  }
+
+  @keyframes interactive-pulse {
+    0%,
+    100% {
+      opacity: 0.1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.2;
+      transform: scale(1.1);
+    }
+  }
+
+  :root {
+    --animation-interactive-pulse: interactive-pulse 3s ease-in-out infinite;
+  }
+
+  /* Interactive Elements */
+  .interactive-element {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    border-radius: var(--border-radius-medium);
+    transition: all var(--transition-duration-normal);
+    position: relative;
+  }
+
+  .interactive-element:hover {
+    transform: var(--hover-scale-interactive);
+  }
+
+  .interactive-element:hover::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+    opacity: 0.1;
+    animation: var(--animation-interactive-pulse);
+  }
+
+  /* Reusable Component Styles */
+
+  /* Large gradient text titles */
+  .title-large-gradient {
+    font-size: clamp(1.8rem, 6vw, 3rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    background: var(--text-gradient-primary);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: var(--text);
+    max-width: 64rem;
+    margin: 0 auto;
+    transition: all var(--transition-duration-normal);
+  }
+
+  .title-large-gradient:hover {
+    color: var(--text);
+  }
+
+  /* Section titles for lists */
+  .section-title {
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin-bottom: 2rem;
+    color: var(--text-muted);
+  }
+
+  /* Blog grid layouts */
+  .blog-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    width: 100%;
+  }
+
+  @media (min-width: 768px) {
+    .blog-grid {
+      gap: 2.5rem;
+    }
+  }
+
+  /* Shared Button Styles */
+
+  /* Copy/Action buttons - positioned overlays */
+  .action-button {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    border-radius: var(--border-radius-extra-small);
+    padding: 0.25rem;
+    cursor: pointer;
+    opacity: 0;
+    background: var(--glass-dark);
+    border: var(--border-width-hairline) solid var(--border);
+    color: var(--text);
+    transition: all var(--transition-duration-fast);
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .action-button:hover {
+    background: var(--glass-dark-hover);
+    border-color: var(--accent);
+  }
+
+  .action-button:focus {
+    outline: var(--outline-width-focus) solid var(--accent);
+    outline-offset: var(--outline-offset-focus);
+  }
+
+  /* Container that shows action buttons on hover */
+  .action-button-container:hover .action-button {
+    opacity: 1;
+  }
+
+  /* Icon sizing within buttons */
+  .action-button svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  /* Common Layout Utilities */
+
+  /* Flexbox utilities */
+  .flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .flex-column {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .flex-row {
+    display: flex;
+    flex-direction: row;
+  }
+
+  /* Accessibility Utilities */
+
+  /* Screen reader only text */
+  .sr-only {
+    position: absolute;
+    width: 0.0625rem;
+    height: 0.0625rem;
+    padding: 0;
+    margin: -0.0625rem;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+}
+
+
+    /* RSS-specific styles using theme variables */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-family);
+      line-height: 1.6;
+      color: var(--text);
+      background-color: var(--base);
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .header {
+      background: var(--surface);
+      padding: 2rem;
+      border-radius: var(--border-radius-medium);
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow-elevation-small);
+      text-align: center;
+      border: var(--border-width-hairline) solid var(--border);
+    }
+
+    .header h1 {
+      color: var(--text);
+      margin-bottom: 0.5rem;
+      font-size: 2rem;
+      font-weight: 700;
+    }
+
+    .header p {
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .rss-info {
+      background: var(--surface-secondary);
+      border: var(--border-width-hairline) solid var(--accent);
+      border-radius: var(--border-radius-medium);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .rss-info h2 {
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    .rss-url {
+      background: var(--surface);
+      border: var(--border-width-hairline) solid var(--border);
+      border-radius: var(--border-radius-small);
+      padding: 0.75rem;
+      font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+      font-size: 0.9rem;
+      word-break: break-all;
+      margin: 0.5rem 0;
+      color: var(--text);
+    }
+
+    .post {
+      background: var(--surface);
+      margin-bottom: 1.5rem;
+      padding: 1.5rem;
+      border-radius: var(--border-radius-medium);
+      box-shadow: var(--shadow-elevation-small);
+      border: var(--border-width-hairline) solid var(--border);
+      transition: all var(--transition-duration-normal);
+    }
+
+    .post:hover {
+      transform: var(--hover-scale-subtle);
+      box-shadow: var(--shadow-elevation-medium);
+    }
+
+    .post-title {
+      font-size: 1.4rem;
+      margin-bottom: 0.5rem;
+      line-height: 1.3;
+    }
+
+    .post-title a {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .post-title a:hover {
+      color: var(--accent);
+      text-decoration: underline;
+    }
+
+    .post-meta {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .post-description {
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
+
+    .post-tags {
+      margin-top: 1rem;
+    }
+
+    .tag {
+      display: inline-block;
+      background: var(--surface-secondary);
+      color: var(--text-muted);
+      padding: 0.25rem 0.75rem;
+      border-radius: var(--border-radius-large);
+      font-size: 0.8rem;
+      margin-right: 0.5rem;
+      margin-bottom: 0.25rem;
+      border: var(--border-width-hairline) solid var(--border);
+      transition: all var(--transition-duration-fast);
+    }
+
+    .tag:hover {
+      background: var(--accent);
+      color: var(--surface);
+      transform: var(--hover-scale-interactive);
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: var(--border-width-hairline) solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .footer a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 15px;
+      }
+
+      .header {
+        padding: 1.5rem;
+      }
+
+      .post {
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <h1>RJ Leyva's Blog</h1>
+    <p>RJ Leyva's personal blog documenting web development insights through writing.</p>
+  </header>
+
+  <section class="rss-info">
+    <h2>Subscribe to this feed</h2>
+    <p>This is a browser-friendly view of the RSS feed. To subscribe in an RSS reader:</p>
+    <div class="rss-url">https://rjleyva-writes.pages.dev/rss.xml</div>
+    <p><em>Raw XML feed:</em> <a href="https://rjleyva-writes.pages.dev/rss.xml">https://rjleyva-writes.pages.dev/rss.xml</a></p>
+  </section>
+
+  <main>
+    <article class="post">
+      <h2 class="post-title">
+        <a href="https://rjleyva-writes.pages.dev/blog/typescript/learning-typescript-through-constraint-not-tutorials">Learning TypeScript Through Constraints, Not Tutorials</a>
+      </h2>
+      <div class="post-meta">
+        <time datetime="2025-12-23T00:00:00.000Z">December 23, 2025</time>
+        <span class="reading-time"> • 5 min read</span>
+      </div>
+      <p class="post-description">How I approach learning TypeScript as a JavaScript developer by starting with strict tooling and letting constraints guide my understanding.</p>
+      <div class="post-tags">
+        <span class="tag">typescript</span> <span class="tag">tooling</span> <span class="tag">learning</span> <span class="tag">developer-experience</span> <span class="tag">personal-growth</span>
+      </div>
+    </article>
+    <article class="post">
+      <h2 class="post-title">
+        <a href="https://rjleyva-writes.pages.dev/blog/inkdrop/how-i-learn-new-framework">How I Learn New Framework</a>
+      </h2>
+      <div class="post-meta">
+        <time datetime="2025-12-22T00:00:00.000Z">December 22, 2025</time>
+        <span class="reading-time"> • 3 min read</span>
+      </div>
+      <p class="post-description">As a full time Solutions Consultant and self-taught developer, one of the hardest challenges is keeping pace with the ever-changing world of web development while still grounding myself in the fundamentals.</p>
+      <div class="post-tags">
+        <span class="tag">learning</span> <span class="tag">productivity</span> <span class="tag">personal growth</span> <span class="tag">developer journey</span>
+      </div>
+    </article>
+    <article class="post">
+      <h2 class="post-title">
+        <a href="https://rjleyva-writes.pages.dev/blog/inkdrop/notes-in-service-of-doing-choosing-inkdrop">Notes in Service of Doing: Choosing Inkdrop</a>
+      </h2>
+      <div class="post-meta">
+        <time datetime="2025-12-21T00:00:00.000Z">December 21, 2025</time>
+        <span class="reading-time"> • 4 min read</span>
+      </div>
+      <p class="post-description">In this post, I want to share why I chose Inkdrop over tools like Obsidian and Notion—not because they fall short, but because of how I work as a solutions consultant and a part‑time web developer.</p>
+      <div class="post-tags">
+        <span class="tag">inkdrop</span> <span class="tag">note-taking</span> <span class="tag">developers</span> <span class="tag">productivity</span> <span class="tag">knowledge-management</span> <span class="tag">tools</span>
+      </div>
+    </article>
+    <article class="post">
+      <h2 class="post-title">
+        <a href="https://rjleyva-writes.pages.dev/blog/neovim/native-lsp-setup-in-neovim-0.11+-on-macos">macOS Neovim 0.11+ Native LSP Configuration</a>
+      </h2>
+      <div class="post-meta">
+        <time datetime="2025-12-20T00:00:00.000Z">December 20, 2025</time>
+        <span class="reading-time"> • 5 min read</span>
+      </div>
+      <p class="post-description">Step by step guide on how to setup LSP in Neovim 0.11+ in macOS.</p>
+      <div class="post-tags">
+        <span class="tag">vim</span> <span class="tag">neovim</span> <span class="tag">lsp</span> <span class="tag">configuration</span>
+      </div>
+    </article>
+    <article class="post">
+      <h2 class="post-title">
+        <a href="https://rjleyva-writes.pages.dev/blog/wezterm/wezterm-terminal-setup">My WezTerm Terminal Setup</a>
+      </h2>
+      <div class="post-meta">
+        <time datetime="2025-12-05T00:00:00.000Z">December 5, 2025</time>
+        <span class="reading-time"> • 3 min read</span>
+      </div>
+      <p class="post-description">How I tuned my terminal for long, focused coding sessions by reducing visual noise and prioritizing ergonomics.</p>
+      <div class="post-tags">
+        <span class="tag">wezterm</span> <span class="tag">terminal</span> <span class="tag">productivity</span> <span class="tag">setup</span>
+      </div>
+    </article>
+    <article class="post">
+      <h2 class="post-title">
+        <a href="https://rjleyva-writes.pages.dev/blog/css/fix-social-icon-flicker-on-theme-toggle">Why transition: all Is Risky (CSS Transition Pitfall)</a>
+      </h2>
+      <div class="post-meta">
+        <time datetime="2025-12-04T00:00:00.000Z">December 4, 2025</time>
+        <span class="reading-time"> • 2 min read</span>
+      </div>
+      <p class="post-description">It wasn’t catastrophic but once you see it, you can’t unsee it. On slower machines or reduced motion environments, it became even more noticeable.</p>
+      <div class="post-tags">
+        <span class="tag">css</span> <span class="tag">bugs</span> <span class="tag">debugging</span> <span class="tag">fix</span>
+      </div>
+    </article>
+  </main>
+
+  <footer class="footer">
+    <p>Generated by RJ Leyva's Blog • <a href="https://rjleyva-writes.pages.dev">Visit RJ Leyva's Blog</a></p>
+  </footer>
+</body>
+</html>
