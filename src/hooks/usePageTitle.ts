@@ -2,10 +2,9 @@ import { useEffect } from 'react'
 
 export const usePageTitle = (
   title: string | null,
-  fallback: string = "RJ Leyva's Modern Docs"
+  fallback: string = 'rjleyva.dev'
 ): void => {
   useEffect(() => {
-    document.title =
-      title != null ? `${title} | RJ Leyva's Modern Docs` : fallback
+    document.title = title != null ? `${title} | rjleyva.dev` : fallback
   }, [title, fallback])
 }
