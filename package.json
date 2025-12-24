@@ -8,9 +8,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsx scripts/generateContentImports.ts && tsc && vite build",
+    "build": "tsx --tsconfig tsconfig.node.json scripts/generateContentImports.ts && tsx --tsconfig tsconfig.node.json scripts/generateRssFeed.ts && tsc && vite build",
     "build:prod": "VITE_APP_ENV=production pnpm run build",
-    "generate-content": "tsx scripts/generateContentImports.ts",
+    "generate-content": "tsx --tsconfig tsconfig.node.json scripts/generateContentImports.ts",
+    "generate-rss": "tsx --tsconfig tsconfig.node.json scripts/generateRssFeed.ts",
     "preview": "vite preview",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
