@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>RJ Leyva's Blog</title>
+    <description>RJ Leyva's personal blog documenting web development insights through writing.</description>
+    <link>https://rjleyva-writes.pages.dev</link>
+    <atom:link href="https://rjleyva-writes.pages.dev/rss.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language>
+    <lastBuildDate>Wed, 24 Dec 2025 17:31:33 GMT</lastBuildDate>
+    <generator>RJ Leyva's Blog</generator>
+    <item>
+      <title><![CDATA[Learning TypeScript Through Constraints, Not Tutorials]]></title>
+      <description><![CDATA[How I approach learning TypeScript as a JavaScript developer by starting with strict tooling and letting constraints guide my understanding.]]></description>
+      <link>https://rjleyva-writes.pages.dev/blog/typescript/learning-typescript-through-constraint-not-tutorials</link>
+      <guid>https://rjleyva-writes.pages.dev/blog/typescript/learning-typescript-through-constraint-not-tutorials</guid>
+      <pubDate>Tue, 23 Dec 2025 00:00:00 GMT</pubDate>
+      <category><![CDATA[typescript]]></category>
+      <category><![CDATA[tooling]]></category>
+      <category><![CDATA[learning]]></category>
+      <category><![CDATA[developer-experience]]></category>
+      <category><![CDATA[personal-growth]]></category>
+    </item>
+    <item>
+      <title><![CDATA[How I Learn New Framework]]></title>
+      <description><![CDATA[As a full time Solutions Consultant and self-taught developer, one of the hardest challenges is keeping pace with the ever-changing world of web development while still grounding myself in the fundamentals.]]></description>
+      <link>https://rjleyva-writes.pages.dev/blog/inkdrop/how-i-learn-new-framework</link>
+      <guid>https://rjleyva-writes.pages.dev/blog/inkdrop/how-i-learn-new-framework</guid>
+      <pubDate>Mon, 22 Dec 2025 00:00:00 GMT</pubDate>
+      <category><![CDATA[learning]]></category>
+      <category><![CDATA[productivity]]></category>
+      <category><![CDATA[personal growth]]></category>
+      <category><![CDATA[developer journey]]></category>
+    </item>
+    <item>
+      <title><![CDATA[Notes in Service of Doing: Choosing Inkdrop]]></title>
+      <description><![CDATA[In this post, I want to share why I chose Inkdrop over tools like Obsidian and Notion—not because they fall short, but because of how I work as a solutions consultant and a part‑time web developer.]]></description>
+      <link>https://rjleyva-writes.pages.dev/blog/inkdrop/notes-in-service-of-doing-choosing-inkdrop</link>
+      <guid>https://rjleyva-writes.pages.dev/blog/inkdrop/notes-in-service-of-doing-choosing-inkdrop</guid>
+      <pubDate>Sun, 21 Dec 2025 00:00:00 GMT</pubDate>
+      <category><![CDATA[inkdrop]]></category>
+      <category><![CDATA[note-taking]]></category>
+      <category><![CDATA[developers]]></category>
+      <category><![CDATA[productivity]]></category>
+      <category><![CDATA[knowledge-management]]></category>
+      <category><![CDATA[tools]]></category>
+    </item>
+    <item>
+      <title><![CDATA[macOS Neovim 0.11+ Native LSP Configuration]]></title>
+      <description><![CDATA[Step by step guide on how to setup LSP in Neovim 0.11+ in macOS.]]></description>
+      <link>https://rjleyva-writes.pages.dev/blog/neovim/native-lsp-setup-in-neovim-0.11+-on-macos</link>
+      <guid>https://rjleyva-writes.pages.dev/blog/neovim/native-lsp-setup-in-neovim-0.11+-on-macos</guid>
+      <pubDate>Sat, 20 Dec 2025 00:00:00 GMT</pubDate>
+      <category><![CDATA[vim]]></category>
+      <category><![CDATA[neovim]]></category>
+      <category><![CDATA[lsp]]></category>
+      <category><![CDATA[configuration]]></category>
+    </item>
+    <item>
+      <title><![CDATA[My WezTerm Terminal Setup]]></title>
+      <description><![CDATA[How I tuned my terminal for long, focused coding sessions by reducing visual noise and prioritizing ergonomics.]]></description>
+      <link>https://rjleyva-writes.pages.dev/blog/wezterm/wezterm-terminal-setup</link>
+      <guid>https://rjleyva-writes.pages.dev/blog/wezterm/wezterm-terminal-setup</guid>
+      <pubDate>Fri, 05 Dec 2025 00:00:00 GMT</pubDate>
+      <category><![CDATA[wezterm]]></category>
+      <category><![CDATA[terminal]]></category>
+      <category><![CDATA[productivity]]></category>
+      <category><![CDATA[setup]]></category>
+    </item>
+    <item>
+      <title><![CDATA[Why transition: all Is Risky (CSS Transition Pitfall)]]></title>
+      <description><![CDATA[It wasn’t catastrophic but once you see it, you can’t unsee it. On slower machines or reduced motion environments, it became even more noticeable.]]></description>
+      <link>https://rjleyva-writes.pages.dev/blog/css/fix-social-icon-flicker-on-theme-toggle</link>
+      <guid>https://rjleyva-writes.pages.dev/blog/css/fix-social-icon-flicker-on-theme-toggle</guid>
+      <pubDate>Thu, 04 Dec 2025 00:00:00 GMT</pubDate>
+      <category><![CDATA[css]]></category>
+      <category><![CDATA[bugs]]></category>
+      <category><![CDATA[debugging]]></category>
+      <category><![CDATA[fix]]></category>
+    </item>
+  </channel>
+</rss>
