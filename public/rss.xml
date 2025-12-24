@@ -6,8 +6,21 @@
     <link>https://rjleyva-writes.pages.dev</link>
     <atom:link href="https://rjleyva-writes.pages.dev/rss.xml" rel="self" type="application/rss+xml" />
     <language>en-us</language>
-    <lastBuildDate>Wed, 24 Dec 2025 17:31:33 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 24 Dec 2025 18:15:33 GMT</lastBuildDate>
     <generator>RJ Leyva's Blog</generator>
+    <item>
+      <title><![CDATA[Build-Time Content Generation: How I Process Blog Posts at Compile Time]]></title>
+      <description><![CDATA[A deep dive into my custom build-time content processing system that transforms markdown files into type-safe TypeScript modules, including the trade-offs and design decisions.]]></description>
+      <link>https://rjleyva-writes.pages.dev/blog/tools/build-time-content-generation-how-i-process-blog-posts-at-compile-time</link>
+      <guid>https://rjleyva-writes.pages.dev/blog/tools/build-time-content-generation-how-i-process-blog-posts-at-compile-time</guid>
+      <pubDate>Wed, 24 Dec 2025 00:00:00 GMT</pubDate>
+      <category><![CDATA[build-tools]]></category>
+      <category><![CDATA[typescript]]></category>
+      <category><![CDATA[markdown]]></category>
+      <category><![CDATA[performance]]></category>
+      <category><![CDATA[developer-experience]]></category>
+      <category><![CDATA[content-management]]></category>
+    </item>
     <item>
       <title><![CDATA[Learning TypeScript Through Constraints, Not Tutorials]]></title>
       <description><![CDATA[How I approach learning TypeScript as a JavaScript developer by starting with strict tooling and letting constraints guide my understanding.]]></description>
