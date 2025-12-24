@@ -17,7 +17,7 @@ export default defineConfig(({ mode }) => {
       }),
       analyzer({
         analyzerMode: 'static',
-        openAnalyzer: true,
+        openAnalyzer: false,
         fileName: 'bundle-report.html'
       })
     ],
