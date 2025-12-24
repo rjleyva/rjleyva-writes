@@ -215,7 +215,7 @@ const generateContentLoaderModule = (markdownFilePaths: string[]): string => {
       const dateValue =
         parsedFile.frontmatter.date instanceof Date
           ? parsedFile.frontmatter.date
-          : new Date(parsedFile.frontmatter.date)
+          : new Date(parsedFile.frontmatter.date + 'T00:00:00.000Z')
 
       const blogPost = {
         title: parsedFile.frontmatter.title,
