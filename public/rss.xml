@@ -6,7 +6,7 @@
     <link>https://rjleyva-writes.pages.dev</link>
     <atom:link href="https://rjleyva-writes.pages.dev/rss.xml" rel="self" type="application/rss+xml" />
     <language>en-us</language>
-    <lastBuildDate>Thu, 25 Dec 2025 16:29:37 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 25 Dec 2025 22:08:40 GMT</lastBuildDate>
     <generator>RJ Leyva's Blog</generator>
     <item>
       <title><![CDATA[Build-Time Content Generation: How I Process Blog Posts at Compile Time]]></title>
