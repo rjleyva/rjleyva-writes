@@ -21,7 +21,7 @@
   background: var(--glass-background);
   border: var(--border-width-hairline) solid var(--border);
   backdrop-filter: var(--backdrop-blur-strong);
-  transition: all var(--transition-duration-normal);
+  transition: background var(--transition-duration-normal), border-color var(--transition-duration-normal);
   box-shadow: var(--shadow-elevation-medium);
 }
 
