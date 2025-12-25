@@ -26,7 +26,7 @@
   font-size: 0.875rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all var(--transition-duration-normal);
+  transition: background var(--transition-duration-normal), opacity var(--transition-duration-normal), transform var(--transition-duration-normal), box-shadow var(--transition-duration-normal);
   box-shadow: 0 2px 8px rgba(var(--accent-rgb), 0.2);
 }
 
