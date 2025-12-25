@@ -1,6 +1,5 @@
 import type React from 'react'
 import { useMemo, useState } from 'react'
-import { Helmet } from '@dr.pogodin/react-helmet'
 import { useGetPosts } from '@/hooks/useBlog'
 import { usePageTitle } from '@/hooks/usePageTitle'
 import type { Post } from '@/types/post'
@@ -43,39 +42,38 @@ const BlogPosts = (): React.JSX.Element => {
     return topicPosts ?? []
   }, [selectedTopic, posts, postsByTopic])
 
-  const pageTitle = usePageTitle(
+  usePageTitle(
     selectedTopic != null
       ? `RJ Leyva's Patterns, problems, and progress with ${getTopicDisplayName(selectedTopic)}`
       : "RJ Leyva's Blog Page"
   )
 
   return (
-    <div className={styles['blog-posts']}>
-      <Helmet>
-        <title>{pageTitle}</title>
-        <meta
-          name="description"
-          content="Browse all blog posts by RJ Leyva on web development insights."
-        />
-        <link rel="canonical" href="https://rjleyva-writes.pages.dev/blog" />
-      </Helmet>
-      <BlogPostsSidebar
-        selectedTopic={selectedTopic}
-        availableTopics={availableTopics}
-        postsByTopic={postsByTopic}
-        posts={posts}
-        onTopicSelect={setSelectedTopic}
+    <>
+      <meta
+        name="description"
+        content="Browse all blog posts by RJ Leyva on web development insights."
       />
-
-      <main className={styles['blog-posts__content']}>
-        <PostsListingHeader selectedTopic={selectedTopic} />
-
-        <BlogPostsGrid
-          displayedPosts={displayedPosts}
+      <link rel="canonical" href="https://rjleyva-writes.pages.dev/blog" />
+      <div className={styles['blog-posts']}>
+        <BlogPostsSidebar
+          selectedTopic={selectedTopic}
+          availableTopics={availableTopics}
+          postsByTopic={postsByTopic}
+          posts={posts}
           onTopicSelect={setSelectedTopic}
         />
-      </main>
-    </div>
+
+        <main className={styles['blog-posts__content']}>
+          <PostsListingHeader selectedTopic={selectedTopic} />
+
+          <BlogPostsGrid
+            displayedPosts={displayedPosts}
+            onTopicSelect={setSelectedTopic}
+          />
+        </main>
+      </div>
+    </>
   )
 }
 
