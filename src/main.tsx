@@ -1,5 +1,4 @@
 import { StrictMode } from 'react'
-import { HelmetProvider } from '@dr.pogodin/react-helmet'
 import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router'
 import { ApplicationErrorBoundary } from './components/ApplicationErrorBoundary/ApplicationErrorBoundary'
@@ -21,11 +20,9 @@ if (!(rootElement instanceof HTMLElement)) {
 createRoot(rootElement).render(
   <StrictMode>
     <ApplicationErrorBoundary>
-      <HelmetProvider>
-        <ThemeProvider>
-          <RouterProvider router={router} />
-        </ThemeProvider>
-      </HelmetProvider>
+      <ThemeProvider>
+        <RouterProvider router={router} />
+      </ThemeProvider>
     </ApplicationErrorBoundary>
   </StrictMode>
 )
