@@ -1,8 +1,8 @@
 import { Component } from 'react'
 import type { ErrorInfo, ReactNode } from 'react'
-import { createLogger } from '@/utils/logger'
+import styles from '@/styles/error-boundary.module.css'
 import { env } from '@/utils/config'
-import styles from './application-error-boundary.module.css'
+import { createLogger } from '@/utils/logger'
 
 interface ErrorBoundaryProps {
   children: ReactNode
