@@ -1,8 +1,10 @@
 class FaviconManager {
   private faviconLinkElement: HTMLLinkElement | null = null
+  private mediaQuery: MediaQueryList | null = null
 
   constructor() {
     this.initFaviconElement()
+    this.setupMediaQueryListener()
   }
 
   private initFaviconElement(): void {
@@ -11,7 +13,21 @@ class FaviconManager {
     ) as HTMLLinkElement | null
   }
 
-  public setFaviconForTheme(isDarkTheme: boolean): void {
+  private setupMediaQueryListener(): void {
+    this.mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
+    this.mediaQuery.addEventListener('change', () => {
+      this.updateFavicon()
+    })
+    // Set initial favicon based on current preference
+    this.updateFavicon()
+  }
+
+  public setFaviconForTheme(_isDarkTheme: boolean): void {
+    // This method is kept for backward compatibility but now uses browser preference
+    this.updateFavicon()
+  }
+
+  private updateFavicon(): void {
     // Ensure favicon element reference is cached
     if (!this.faviconLinkElement) {
       this.initFaviconElement()
@@ -20,13 +36,15 @@ class FaviconManager {
     if (!this.faviconLinkElement) return
 
     // Mapping logic:
-    // Both favicons use accent blue (#3a70d6) which has sufficient contrast on both light and dark backgrounds.
-    // This ensures favicon visibility regardless of macOS system theme (light/dark) or blog theme (light/dark).
-    // Cache-busting query parameter forces browser to reload favicon and prevents stale favicon display.
-    // The href change triggers favicon update when theme changes.
-    this.faviconLinkElement.href = isDarkTheme
-      ? '/favicons/favicon-light.svg?theme=dark'
-      : '/favicons/favicon-dark.svg?theme=light'
+    // Use browser/system theme preference to determine favicon color for visibility
+    // against the browser tab background, not the website's theme
+    const prefersDark = window.matchMedia(
+      '(prefers-color-scheme: dark)'
+    ).matches
+    const timestamp = Date.now()
+    this.faviconLinkElement.href = prefersDark
+      ? `/favicons/favicon-light.svg?theme=dark&t=${timestamp}`
+      : `/favicons/favicon-dark.svg?theme=light&t=${timestamp}`
   }
 }
 
