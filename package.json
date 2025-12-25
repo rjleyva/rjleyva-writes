@@ -9,10 +9,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsx --tsconfig tsconfig.node.json scripts/generateContentImports.ts && tsx --tsconfig tsconfig.node.json scripts/generateRssFeed.ts && tsc && vite build",
-    "build:prod": "VITE_APP_ENV=production pnpm run build",
-    "build:production": "pnpm run lint && pnpm run type-check && pnpm run generate-content && pnpm run generate-rss && VITE_APP_ENV=production pnpm run build",
-    "generate-content": "tsx --tsconfig tsconfig.node.json scripts/generateContentImports.ts",
-    "generate-rss": "tsx --tsconfig tsconfig.node.json scripts/generateRssFeed.ts",
+    "build:production": "pnpm run lint && pnpm run type-check && pnpm run build",
     "preview": "vite preview",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
@@ -22,7 +19,6 @@
     "setup": "node -e \"if (!require('fs').existsSync('.env')) { require('fs').copyFileSync('.env.example', '.env'); console.log('.env file created from .env.example'); } else { console.log('.env file already exists'); }\""
   },
   "dependencies": {
-    "@dr.pogodin/react-helmet": "^3.0.4",
     "modern-normalize": "^3.0.1",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
