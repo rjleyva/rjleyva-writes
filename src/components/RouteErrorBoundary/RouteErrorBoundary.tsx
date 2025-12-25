@@ -1,7 +1,7 @@
 import type React from 'react'
 import { useNavigate, useRouteError } from 'react-router'
+import styles from '@/styles/error-boundary.module.css'
 import { env } from '@/utils/config'
-import styles from './route-error-boundary.module.css'
 
 const RouteErrorBoundary = (): React.JSX.Element => {
   const error = useRouteError() as Error
