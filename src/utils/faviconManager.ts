@@ -1,10 +1,15 @@
 class FaviconManager {
   private faviconLinkElement: HTMLLinkElement | null = null
   private mediaQuery: MediaQueryList | null = null
+  private isInitialized: boolean = false
 
-  constructor() {
+  constructor() {}
+
+  public initialize(): void {
+    if (this.isInitialized) return
     this.initFaviconElement()
     this.setupMediaQueryListener()
+    this.isInitialized = true
   }
 
   private initFaviconElement(): void {
@@ -49,4 +54,9 @@ class FaviconManager {
 }
 
 export const faviconManager = new FaviconManager()
+
+export const initializeFaviconManager = (): void => {
+  faviconManager.initialize()
+}
+
 export default FaviconManager
