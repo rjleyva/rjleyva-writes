@@ -100,7 +100,7 @@
   font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
   font-size: 0.875rem;
   line-height: 1.4;
-  color: var(--error, #dc2626);
+  color: var(--error-color);
   white-space: pre-wrap;
   word-break: break-word;
   overflow-x: auto;
