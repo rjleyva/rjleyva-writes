@@ -12,8 +12,10 @@
 :root,
 [data-theme='light'] {
   --base: #fafafa;
+  --background: var(--base);
   --surface: #ffffff;
   --surface-secondary: #f8f9fa;
+  --background-secondary: var(--surface-secondary);
   --surface-tertiary: #f1f3f4;
   --overlay: #f2f2f2;
   --border: #e5e5e5;
@@ -29,12 +31,17 @@
   --code-function: #795e26;
   --code-number: #09885a;
   --accent: #3a70d6;
+  --accent-hover: #2c5aa3;
   --accent-rgb: 58, 112, 214;
   --accent-muted: #8eb2ec;
+  --error-color: #dc3545;
+  --error-bg: rgba(220, 53, 69, 0.1);
   --shadow-color: rgba(0, 0, 0, 0.06);
   --glass-light: rgba(255, 255, 255, 0.08);
   --glass-dark: rgba(0, 0, 0, 0.1);
+  --glass-dark-hover: rgba(0, 0, 0, 0.15);
   --color-white: #ffffff;
+  --color-white-alpha-20: rgba(255, 255, 255, 0.2);
   --font-family:
     'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
     sans-serif;
@@ -42,8 +49,10 @@
 
 [data-theme='dark'] {
   --base: #0f0f10;
+  --background: var(--base);
   --surface: #161617;
   --surface-secondary: #1a1a1b;
+  --background-secondary: var(--surface-secondary);
   --surface-tertiary: #1f1f20;
   --overlay: #1d1d1e;
   --border: #2a2a2b;
@@ -59,12 +68,17 @@
   --code-function: #dcdcaa;
   --code-number: #b5cea8;
   --accent: #6ea8ff;
+  --accent-hover: #4d8eff;
   --accent-rgb: 110, 168, 255;
   --accent-muted: #3c6fb3;
+  --error-color: #ff6b7d;
+  --error-bg: rgba(255, 107, 125, 0.1);
   --shadow-color: rgba(0, 0, 0, 0.5);
   --glass-light: rgba(255, 255, 255, 0.08);
   --glass-dark: rgba(0, 0, 0, 0.1);
+  --glass-dark-hover: rgba(0, 0, 0, 0.2);
   --color-white: #ffffff;
+  --color-white-alpha-20: rgba(255, 255, 255, 0.2);
   --font-family:
     'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
     sans-serif;
@@ -73,8 +87,10 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
     --base: #0f0f10;
+    --background: var(--base);
     --surface: #161617;
     --surface-secondary: #1a1a1b;
+    --background-secondary: var(--surface-secondary);
     --surface-tertiary: #1f1f20;
     --overlay: #1d1d1e;
     --border: #2a2a2b;
@@ -90,8 +106,11 @@
     --code-function: #dcdcaa;
     --code-number: #b5cea8;
     --accent: #6ea8ff;
+    --accent-hover: #4d8eff;
     --accent-rgb: 110, 168, 255;
     --accent-muted: #3c6fb3;
+    --error-color: #ff6b7d;
+    --error-bg: rgba(255, 107, 125, 0.1);
     --shadow-color: rgba(0, 0, 0, 0.5);
     --glass-light: rgba(255, 255, 255, 0.08);
     --glass-dark: rgba(0, 0, 0, 0.1);
@@ -306,20 +325,6 @@
     flex-direction: row;
   }
 
-  /* Accessibility Utilities */
-
-  /* Screen reader only text */
-  .sr-only {
-    position: absolute;
-    width: 0.0625rem;
-    height: 0.0625rem;
-    padding: 0;
-    margin: -0.0625rem;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
-  }
 }
 
 
@@ -504,6 +509,19 @@
   </section>
 
   <main>
+    <article class="post">
+      <h2 class="post-title">
+        <a href="https://rjleyva-writes.pages.dev/blog/web-development/implementing-dynamic-favicons">Implementing Dynamic Favicons</a>
+      </h2>
+      <div class="post-meta">
+        <time datetime="2025-12-25T00:00:00.000Z">December 25, 2025</time>
+        <span class="reading-time"> • 8 min read</span>
+      </div>
+      <p class="post-description">A comprehensive exploration of building a theme-aware favicon system that adapts to both user preferences and system settings, including performance optimizations, browser compatibility considerations, and architectural trade-offs.</p>
+      <div class="post-tags">
+        <span class="tag">web-development</span> <span class="tag">accessibility</span> <span class="tag">performance</span> <span class="tag">browser-api</span> <span class="tag">theme-system</span> <span class="tag">typescript</span> <span class="tag">user-experience</span>
+      </div>
+    </article>
     <article class="post">
       <h2 class="post-title">
         <a href="https://rjleyva-writes.pages.dev/blog/tools/build-time-content-generation-how-i-process-blog-posts-at-compile-time">Build-Time Content Generation: How I Process Blog Posts at Compile Time</a>
