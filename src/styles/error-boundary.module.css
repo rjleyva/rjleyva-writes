@@ -68,7 +68,7 @@
 }
 
 .error-boundary__button--secondary:hover {
-  background-color: var(--background-secondary);
+  background-color: var(--surface-secondary);
   border-color: var(--accent);
 }
 
@@ -93,7 +93,7 @@
 }
 
 .error-boundary__error {
-  background-color: var(--background-secondary);
+  background-color: var(--surface-secondary);
   border: 1px solid var(--border);
   border-radius: 0.375rem;
   padding: 1rem;
