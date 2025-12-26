@@ -89,7 +89,7 @@
 }
 
 .blog-posts-sidebar__nav-item--active .blog-posts-sidebar__nav-count {
-  background: rgba(255, 255, 255, 0.2);
+  background: var(--color-white-alpha-20);
   color: white;
 }
 
