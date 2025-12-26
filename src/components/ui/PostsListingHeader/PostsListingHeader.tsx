@@ -1,5 +1,5 @@
 import type React from 'react'
-import { getTopicDisplayName } from '@/utils/blogUtils'
+import { getTopicDisplayName } from '@/lib/postFormattingUtils'
 import styles from './posts-listing-header.module.css'
 
 interface PostsListingHeaderProps {

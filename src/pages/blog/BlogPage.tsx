@@ -4,7 +4,7 @@ import BlogPostContent from '@/components/ui/BlogPostContent/BlogPostContent'
 import PostDetailHeader from '@/components/ui/PostDetailHeader/PostDetailHeader'
 import { useGetPost } from '@/hooks/useBlog'
 import { usePageTitle } from '@/hooks/usePageTitle'
-import { getTopicDisplayName } from '@/utils/blogUtils'
+import { getTopicDisplayName } from '@/lib/postFormattingUtils'
 import { config } from '@/utils/config'
 
 const BlogPage = (): React.JSX.Element => {

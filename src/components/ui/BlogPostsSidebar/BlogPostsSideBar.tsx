@@ -1,6 +1,6 @@
 import type React from 'react'
+import { getTopicDisplayName } from '@/lib/postFormattingUtils'
 import type { Post } from '@/types/post'
-import { getTopicDisplayName } from '@/utils/blogUtils'
 import styles from './blog-posts-sidebar.module.css'
 
 interface BlogPostsSidebarProps {
