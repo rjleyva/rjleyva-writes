@@ -6,8 +6,22 @@
     <link>https://rjleyva-writes.pages.dev</link>
     <atom:link href="https://rjleyva-writes.pages.dev/rss.xml" rel="self" type="application/rss+xml" />
     <language>en-us</language>
-    <lastBuildDate>Thu, 25 Dec 2025 22:38:32 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 26 Dec 2025 04:41:44 GMT</lastBuildDate>
     <generator>RJ Leyva's Blog</generator>
+    <item>
+      <title><![CDATA[Implementing Dynamic Favicons]]></title>
+      <description><![CDATA[A comprehensive exploration of building a theme-aware favicon system that adapts to both user preferences and system settings, including performance optimizations, browser compatibility considerations, and architectural trade-offs.]]></description>
+      <link>https://rjleyva-writes.pages.dev/blog/web-development/implementing-dynamic-favicons</link>
+      <guid>https://rjleyva-writes.pages.dev/blog/web-development/implementing-dynamic-favicons</guid>
+      <pubDate>Thu, 25 Dec 2025 00:00:00 GMT</pubDate>
+      <category><![CDATA[web-development]]></category>
+      <category><![CDATA[accessibility]]></category>
+      <category><![CDATA[performance]]></category>
+      <category><![CDATA[browser-api]]></category>
+      <category><![CDATA[theme-system]]></category>
+      <category><![CDATA[typescript]]></category>
+      <category><![CDATA[user-experience]]></category>
+    </item>
     <item>
       <title><![CDATA[Build-Time Content Generation: How I Process Blog Posts at Compile Time]]></title>
       <description><![CDATA[A deep dive into my custom build-time content processing system that transforms markdown files into type-safe TypeScript modules, including the trade-offs and design decisions.]]></description>
