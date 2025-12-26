@@ -21,10 +21,10 @@ const BlogPostsSidebar = ({
   return (
     <aside className={styles['blog-posts-sidebar']}>
       <div className={styles['blog-posts-sidebar__header']}>
-        <h2 className={styles['blog-posts-sidebar__title']}>RJ Leyva</h2>
+        {/* <h2 className={styles['blog-posts-sidebar__title']}>RJ Leyva</h2>
         <p className={styles['blog-posts-sidebar__subtitle']}>
           Consultant | Developer
-        </p>
+        </p> */}
       </div>
 
       <nav className={styles['blog-posts-sidebar__navigation']}>
