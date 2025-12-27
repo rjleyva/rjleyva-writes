@@ -6,7 +6,7 @@
     <link>https://rjleyva-writes.pages.dev</link>
     <atom:link href="https://rjleyva-writes.pages.dev/rss.xml" rel="self" type="application/rss+xml" />
     <language>en-us</language>
-    <lastBuildDate>Sat, 27 Dec 2025 03:29:47 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 27 Dec 2025 03:40:30 GMT</lastBuildDate>
     <generator>RJ Leyva's Blog</generator>
     <item>
       <title><![CDATA[Implementing Dynamic Favicons]]></title>
@@ -25,8 +25,8 @@
     <item>
       <title><![CDATA[Build-Time Content Generation]]></title>
       <description><![CDATA[A deep dive into my custom build-time content processing system that transforms markdown files into type-safe TypeScript modules, including the trade-offs and design decisions.]]></description>
-      <link>https://rjleyva-writes.pages.dev/blog/tools/build-time-content-generation-how</link>
-      <guid>https://rjleyva-writes.pages.dev/blog/tools/build-time-content-generation-how</guid>
+      <link>https://rjleyva-writes.pages.dev/blog/tools/build-time-content-generation</link>
+      <guid>https://rjleyva-writes.pages.dev/blog/tools/build-time-content-generation</guid>
       <pubDate>Wed, 24 Dec 2025 00:00:00 GMT</pubDate>
       <category><![CDATA[build-tools]]></category>
       <category><![CDATA[typescript]]></category>
