@@ -39,10 +39,15 @@ My implementation centers around a singleton `FaviconManager` class that handles
 class FaviconManager {
   private faviconLinkElement: HTMLLinkElement | null = null
   private mediaQuery: MediaQueryList | null = null
+  private isInitialized: boolean = false
 
-  constructor() {
+  constructor() {}
+
+  public initialize(): void {
+    if (this.isInitialized) return
     this.initFaviconElement()
     this.setupMediaQueryListener()
+    this.isInitialized = true
   }
 
   private initFaviconElement(): void {
@@ -87,6 +92,10 @@ class FaviconManager {
 }
 
 export const faviconManager = new FaviconManager()
+
+export const initializeFaviconManager = (): void => {
+  faviconManager.initialize()
+}
 ```
 
 ## Key Design Decisions and Trade-offs
@@ -103,23 +112,27 @@ One of the most critical decisions was whether to base the favicon on the applic
 
 **The Trade-off**: This means the favicon might not always match your application's theme, but it will always be visible against the tab background.
 
-### Singleton Pattern with Immediate Initialization
+### Singleton Pattern with Lazy Initialization
 
-The `faviconManager` is exported as a singleton instance that initializes immediately:
+The `faviconManager` is exported as a singleton instance with lazy initialization:
 
 ```typescript
 export const faviconManager = new FaviconManager()
+
+export const initializeFaviconManager = (): void => {
+  faviconManager.initialize()
+}
 ```
 
 **Benefits:**
 
-- **Immediate Setup**: Starts working as soon as the module loads
-- **No Manual Initialization**: Components don't need to worry about setup
+- **Controlled Setup**: Initialization happens when explicitly called, providing better control
 - **Predictable State**: Single source of truth for favicon state
+- **Better Error Handling**: Initialization can be wrapped with error boundaries
 
 **Considerations:**
 
-- **Side Effects**: Initialization happens during module loading
+- **Manual Initialization Required**: Must be explicitly called during app startup
 - **Global State**: Can make testing more complex
 
 ### Defensive Programming and Error Handling
@@ -210,14 +223,16 @@ Interestingly, the `setFaviconForTheme` method now ignores the parameter and use
 
 ### Module Import Strategy
 
-The favicon manager initializes automatically when imported:
+The favicon manager uses lazy initialization and must be explicitly initialized:
 
 ```typescript
 // In main.tsx
-import './utils/faviconManager'
+import { initializeFaviconManager } from './utils/faviconManager'
+
+initializeFaviconManager()
 ```
 
-This ensures the system starts working immediately when the application loads, without requiring explicit initialization from components.
+This approach provides more control over when the favicon system initializes and allows for proper error handling during the initialization process.
 
 ## Performance Optimizations
 
