@@ -1,5 +1,5 @@
 ---
-title: 'Build-Time Content Generation: How I Process Blog Posts at Compile Time'
+title: Build-Time Content Generation
 description: A deep dive into my custom build-time content processing system that transforms markdown files into type-safe TypeScript modules, including the trade-offs and design decisions.
 date: 2025-12-24
 tags:
@@ -12,6 +12,8 @@ tags:
     'content-management'
   ]
 ---
+
+# How I Process Blog Posts at Compile Time
 
 When I started building my personal blog, I wanted something that felt both fast and maintainable. Most static site generators handle content at build time, but I found myself wanting more control over the process. Instead of using a framework's content layer, I built my own build-time content generation system.
 
