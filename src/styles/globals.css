@@ -136,7 +136,7 @@ theme;
 }
 
 .markdown-content blockquote p {
-  font-size: 0.875;
+  font-size: 0.875rem;
   color: var(--text-muted);
   margin: 0;
 }
