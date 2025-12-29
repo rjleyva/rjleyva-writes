@@ -1,6 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router'
+import { HelmetProvider } from '@dr.pogodin/react-helmet'
 import { ApplicationErrorBoundary } from './components/ApplicationErrorBoundary/ApplicationErrorBoundary'
 import { ThemeProvider } from './contexts/ThemeProvider'
 import routes from './routes/routes'
@@ -22,9 +23,11 @@ initializeFaviconManager()
 createRoot(rootElement).render(
   <StrictMode>
     <ApplicationErrorBoundary>
-      <ThemeProvider>
-        <RouterProvider router={router} />
-      </ThemeProvider>
+      <HelmetProvider>
+        <ThemeProvider>
+          <RouterProvider router={router} />
+        </ThemeProvider>
+      </HelmetProvider>
     </ApplicationErrorBoundary>
   </StrictMode>
 )
