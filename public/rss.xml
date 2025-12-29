@@ -6,8 +6,24 @@
     <link>https://rjleyva-writes.pages.dev</link>
     <atom:link href="https://rjleyva-writes.pages.dev/rss.xml" rel="self" type="application/rss+xml" />
     <language>en-us</language>
-    <lastBuildDate>Sat, 27 Dec 2025 15:10:01 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 29 Dec 2025 10:39:14 GMT</lastBuildDate>
     <generator>RJ Leyva's Blog</generator>
+    <item>
+      <title><![CDATA[A Journey into Full-Stack Development: Basic Monorepo Setup]]></title>
+      <description><![CDATA[Join me on my journey into full-stack development as I set up a basic monorepo for *Yaru Koto* (やること – “things to do”). Using **pnpm workspaces**, I navigated the challenges of managing frontend and backend code, sharing TypeScript types, and orchestrating builds across packages. This post covers the monorepo setup, shared package architecture, and lessons learned along the way—perfect for solo developers or anyone curious about organizing a full-stack project efficiently.]]></description>
+      <link>https://rjleyva-writes.pages.dev/blog/web-development/pnpm-mono-repo-setup</link>
+      <guid>https://rjleyva-writes.pages.dev/blog/web-development/pnpm-mono-repo-setup</guid>
+      <pubDate>Mon, 29 Dec 2025 00:00:00 GMT</pubDate>
+      <category><![CDATA[pnpm]]></category>
+      <category><![CDATA[monorepo]]></category>
+      <category><![CDATA[typescript]]></category>
+      <category><![CDATA[react]]></category>
+      <category><![CDATA[vite]]></category>
+      <category><![CDATA[nodejs]]></category>
+      <category><![CDATA[express]]></category>
+      <category><![CDATA[full-stack]]></category>
+      <category><![CDATA[web-development]]></category>
+    </item>
     <item>
       <title><![CDATA[Security-First Markdown Processing]]></title>
       <description><![CDATA[A deep dive into my restrictive markdown sanitization approach that prioritizes security while maintaining rich content features, exploring the trade-offs and implementation details.]]></description>
