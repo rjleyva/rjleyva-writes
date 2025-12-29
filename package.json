@@ -19,6 +19,7 @@
     "setup": "node -e \"if (!require('fs').existsSync('.env')) { require('fs').copyFileSync('.env.example', '.env'); console.log('.env file created from .env.example'); } else { console.log('.env file already exists'); }\""
   },
   "dependencies": {
+    "@dr.pogodin/react-helmet": "^3.0.5",
     "modern-normalize": "^3.0.1",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
