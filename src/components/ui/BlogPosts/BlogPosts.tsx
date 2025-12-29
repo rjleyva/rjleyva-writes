@@ -1,7 +1,7 @@
 import type React from 'react'
 import { useMemo, useState } from 'react'
+import { Helmet } from '@dr.pogodin/react-helmet'
 import { useGetPosts } from '@/hooks/useBlog'
-import { usePageTitle } from '@/hooks/usePageTitle'
 import { getTopicDisplayName } from '@/lib/postFormattingUtils'
 import type { Post } from '@/types/post'
 import BlogPostsGrid from '../BlogPostsGrid/BlogPostsGrid'
@@ -42,19 +42,58 @@ const BlogPosts = (): React.JSX.Element => {
     return topicPosts ?? []
   }, [selectedTopic, posts, postsByTopic])
 
-  usePageTitle(
-    selectedTopic != null
-      ? `RJ Leyva's Patterns, problems, and progress with ${getTopicDisplayName(selectedTopic)}`
-      : "RJ Leyva's Blog Page"
-  )
-
   return (
     <>
-      <meta
-        name="description"
-        content="Browse all blog posts by RJ Leyva on web development insights."
-      />
-      <link rel="canonical" href="https://rjleyva-writes.pages.dev/blog" />
+      <Helmet>
+        <title>
+          {selectedTopic != null
+            ? `RJ Leyva's Patterns, problems, and progress with ${getTopicDisplayName(selectedTopic)} | RJ Leyva's Blog`
+            : "Blog Page | RJ Leyva's Blog"}
+        </title>
+        <meta
+          name="description"
+          content={
+            selectedTopic != null
+              ? `Explore RJ Leyva's insights and experiences with ${getTopicDisplayName(selectedTopic)}. Web development patterns, problems, and progress.`
+              : 'Browse all blog posts by RJ Leyva covering web development, React, TypeScript, and developer tools.'
+          }
+        />
+        <meta
+          name="keywords"
+          content={`web development, ${selectedTopic ?? 'blog'}, RJ Leyva, React, TypeScript, programming`}
+        />
+        <meta name="author" content="RJ Leyva" />
+
+        {/* Open Graph Tags */}
+        <meta
+          property="og:title"
+          content={
+            selectedTopic != null
+              ? `RJ Leyva's Patterns, problems, and progress with ${getTopicDisplayName(selectedTopic)}`
+              : "Blog | RJ Leyva's Blog"
+          }
+        />
+        <meta
+          property="og:description"
+          content={
+            selectedTopic != null
+              ? `Explore RJ Leyva's insights and experiences with ${getTopicDisplayName(selectedTopic)}. Web development patterns, problems, and progress.`
+              : 'Browse all blog posts by RJ Leyva covering web development, React, TypeScript, and developer tools.'
+          }
+        />
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:url"
+          content={`https://rjleyva-writes.pages.dev/blog${selectedTopic != null ? `?topic=${selectedTopic}` : ''}`}
+        />
+        <meta property="og:site_name" content="RJ Leyva's Blog" />
+
+        {/* Canonical URL */}
+        <link
+          rel="canonical"
+          href={`https://rjleyva-writes.pages.dev/blog${selectedTopic != null ? `?topic=${selectedTopic}` : ''}`}
+        />
+      </Helmet>
       <div className={styles['blog-posts']}>
         <BlogPostsSidebar
           selectedTopic={selectedTopic}
