@@ -1,19 +1,8 @@
 ---
-title: 'A Journey into Full-Stack Development: Basic Monorepo Setup'
-description: Join me on my journey into full-stack development as I set up a basic monorepo for *Yaru Koto* (やること – “things to do”). Using **pnpm workspaces**, I navigated the challenges of managing frontend and backend code, sharing TypeScript types, and orchestrating builds across packages. This post covers the monorepo setup, shared package architecture, and lessons learned along the way—perfect for solo developers or anyone curious about organizing a full-stack project efficiently.
+title: 'A Journey into Full-Stack Development: Exploring a pnpm Workspace Monorepo'
+description: A hands-on look at setting up a pnpm workspace monorepo for Yaru Koto, including shared packages, TypeScript types, and full-stack project structure for solo developers.
 date: 2025-12-29
-tags:
-  [
-    'pnpm',
-    'monorepo',
-    'typescript',
-    'react',
-    'vite',
-    'nodejs',
-    'express',
-    'full-stack',
-    'web-development'
-  ]
+tags: ['pnpm', 'monorepo', 'workspace', 'full-stack', 'web-development']
 ---
 
 So I decided I wanted to learn full-stack development. You know, actually build something end-to-end instead of just following tutorials. But I quickly realized that managing separate repos for frontend and backend sounded like a total nightmare - keeping types in sync, dealing with version mismatches, all that jazz.

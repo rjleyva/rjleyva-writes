@@ -1,9 +1,13 @@
 ---
 title: 'Why transition: all Is Risky (CSS Transition Pitfall)'
 date: 2025-12-04
-description: It wasn’t catastrophic but once you see it, you can’t unsee it. On slower machines or reduced motion environments, it became even more noticeable.
+description: 'A small CSS bug caused by `transition: all`, and the subtle visual flicker it introduced—along with why explicitly scoping transitions leads to more predictable UI behavior.'
 tags: ['css', 'bugs', 'debugging', 'fix']
 ---
+
+Hi everyone — it’s RJ. Today I want to share a small but surprisingly tricky CSS
+issue I ran into while building my blog. It revolves around a single line of
+CSS: `transition: all`.
 
 # The Symptom
 

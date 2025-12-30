@@ -1,8 +1,7 @@
 ---
 title: 'Notes in Service of Doing: Choosing Inkdrop'
 date: 2025-12-21
-description: In this post, I want to share why I chose Inkdrop over tools like Obsidian and Notion—not because they fall short, but because of how I work as a solutions consultant and a part‑time web developer.
-
+description: A reflection on choosing Inkdrop over Obsidian and Notion, and how deliberate constraints support clear thinking and consistent execution.
 tags:
   [
     'inkdrop',
@@ -14,7 +13,9 @@ tags:
   ]
 ---
 
-## What is [Inkdrop](https://www.inkdrop.app/)?
+Hi everyone — it's RJ. I want to share why I chose Inkdrop over tools like Obsidian and Notion—not because they fall short, but because of how I work as someone who consults full-time while learning development on my own.
+
+## What is Inkdrop?
 
 On the surface, [Inkdrop](https://www.inkdrop.app/) is a note‑taking app for developers. You write in Markdown, you organize your thoughts, and you move on. But for me, it’s more than a notes app—it’s a deliberate constraint, and that’s exactly why it works.
 
@@ -36,7 +37,7 @@ I’ve watched countless tutorials where the focus shifts from thinking clearly 
 
 ## Execution Over Elegance
 
-As a full‑time solutions consultant and part‑time developer, my job is not to build the most beautiful knowledge system imaginable. My job is to execute. Ideas matter—but they are a means, not the end.
+As someone who consults full-time while learning development on my own, my job is not to build the most beautiful knowledge system imaginable. My job is to execute. Ideas matter—but they are a means, not the end.
 
 I’ve personally experienced how easy it is to become excellent at organizing notes while struggling to move ideas into reality. Time spent refining note architecture is time not spent designing real systems, solving real problems, or shipping real solutions.
 

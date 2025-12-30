@@ -258,5 +258,3 @@ The trade-off is complexity—I maintain more code than I would with a standard 
 If you're building a blog and want maximum control over your content pipeline, this approach might work for you too. Just be prepared to maintain the build tooling alongside your content.
 
 You can see the complete implementation in my [blog repository](https://github.com/rjleyva/rjleyva-writes). The content generation script runs automatically during builds, transforming markdown into type-safe TypeScript that my React components can import directly.
-
-What do you think—would you build something similar for your own blog, or stick with a more conventional approach?

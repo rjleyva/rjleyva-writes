@@ -1,7 +1,7 @@
 ---
 title: macOS Neovim 0.11+ Native LSP Configuration
 date: 2025-12-20
-description: Step by step guide on how to setup LSP in Neovim 0.11+ in macOS.
+description: Step by step guide on how I setup LSP in Neovim 0.11+ in macOS.
 tags: ['vim', 'neovim', 'lsp', 'configuration']
 ---
 
@@ -246,11 +246,3 @@ If you want a fully portable, zero-setup experience, Mason may still be a better
 This approach scales naturally as you add more language servers. In future posts, I’ll cover keymaps, diagnostics, formatting, and multi-server setups—still using Neovim’s native LSP.
 
 You can find the full working Neovim configuration [here](https://github.com/rjleyva/dotfiles-macos).
-
-### Next steps
-
-- Add more language servers using the same `lsp/` pattern
-- Define LSP keymaps and diagnostics
-- Integrate formatting without external plugins
-
-See you in the next post.

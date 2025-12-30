@@ -6,21 +6,17 @@
     <link>https://rjleyva-writes.pages.dev</link>
     <atom:link href="https://rjleyva-writes.pages.dev/rss.xml" rel="self" type="application/rss+xml" />
     <language>en-us</language>
-    <lastBuildDate>Mon, 29 Dec 2025 22:29:44 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 30 Dec 2025 11:07:01 GMT</lastBuildDate>
     <generator>RJ Leyva's Blog</generator>
     <item>
-      <title><![CDATA[A Journey into Full-Stack Development: Basic Monorepo Setup]]></title>
-      <description><![CDATA[Join me on my journey into full-stack development as I set up a basic monorepo for *Yaru Koto* (やること – “things to do”). Using **pnpm workspaces**, I navigated the challenges of managing frontend and backend code, sharing TypeScript types, and orchestrating builds across packages. This post covers the monorepo setup, shared package architecture, and lessons learned along the way—perfect for solo developers or anyone curious about organizing a full-stack project efficiently.]]></description>
-      <link>https://rjleyva-writes.pages.dev/blog/web-development/pnpm-mono-repo-setup</link>
-      <guid>https://rjleyva-writes.pages.dev/blog/web-development/pnpm-mono-repo-setup</guid>
+      <title><![CDATA[A Journey into Full-Stack Development: Exploring a pnpm Workspace Monorepo]]></title>
+      <description><![CDATA[A hands-on look at setting up a pnpm workspace monorepo for Yaru Koto, including shared packages, TypeScript types, and full-stack project structure for solo developers.]]></description>
+      <link>https://rjleyva-writes.pages.dev/blog/web-development/exploring-pnpm-workspace-monorepo</link>
+      <guid>https://rjleyva-writes.pages.dev/blog/web-development/exploring-pnpm-workspace-monorepo</guid>
       <pubDate>Mon, 29 Dec 2025 00:00:00 GMT</pubDate>
       <category><![CDATA[pnpm]]></category>
       <category><![CDATA[monorepo]]></category>
-      <category><![CDATA[typescript]]></category>
-      <category><![CDATA[react]]></category>
-      <category><![CDATA[vite]]></category>
-      <category><![CDATA[nodejs]]></category>
-      <category><![CDATA[express]]></category>
+      <category><![CDATA[workspace]]></category>
       <category><![CDATA[full-stack]]></category>
       <category><![CDATA[web-development]]></category>
     </item>
@@ -78,10 +74,10 @@
       <category><![CDATA[personal-growth]]></category>
     </item>
     <item>
-      <title><![CDATA[How I Learn New Framework]]></title>
-      <description><![CDATA[As a full time Solutions Consultant and self-taught developer, one of the hardest challenges is keeping pace with the ever-changing world of web development while still grounding myself in the fundamentals.]]></description>
-      <link>https://rjleyva-writes.pages.dev/blog/inkdrop/how-i-learn-new-framework</link>
-      <guid>https://rjleyva-writes.pages.dev/blog/inkdrop/how-i-learn-new-framework</guid>
+      <title><![CDATA[Fundamentals in Service of Growth: Learning New Frameworks]]></title>
+      <description><![CDATA[A reflection on learning new frameworks while consulting full-time, and why staying grounded in fundamentals matters more than keeping up with every new tool.]]></description>
+      <link>https://rjleyva-writes.pages.dev/blog/inkdrop/fundamentals-in-service-of-growth-learning-new-frameworks</link>
+      <guid>https://rjleyva-writes.pages.dev/blog/inkdrop/fundamentals-in-service-of-growth-learning-new-frameworks</guid>
       <pubDate>Mon, 22 Dec 2025 00:00:00 GMT</pubDate>
       <category><![CDATA[learning]]></category>
       <category><![CDATA[productivity]]></category>
@@ -90,7 +86,7 @@
     </item>
     <item>
       <title><![CDATA[Notes in Service of Doing: Choosing Inkdrop]]></title>
-      <description><![CDATA[In this post, I want to share why I chose Inkdrop over tools like Obsidian and Notion—not because they fall short, but because of how I work as a solutions consultant and a part‑time web developer.]]></description>
+      <description><![CDATA[A reflection on choosing Inkdrop over Obsidian and Notion, and how deliberate constraints support clear thinking and consistent execution.]]></description>
       <link>https://rjleyva-writes.pages.dev/blog/inkdrop/notes-in-service-of-doing-choosing-inkdrop</link>
       <guid>https://rjleyva-writes.pages.dev/blog/inkdrop/notes-in-service-of-doing-choosing-inkdrop</guid>
       <pubDate>Sun, 21 Dec 2025 00:00:00 GMT</pubDate>
@@ -103,7 +99,7 @@
     </item>
     <item>
       <title><![CDATA[macOS Neovim 0.11+ Native LSP Configuration]]></title>
-      <description><![CDATA[Step by step guide on how to setup LSP in Neovim 0.11+ in macOS.]]></description>
+      <description><![CDATA[Step by step guide on how I setup LSP in Neovim 0.11+ in macOS.]]></description>
       <link>https://rjleyva-writes.pages.dev/blog/neovim/native-lsp-setup-in-neovim-0.11+-on-macos</link>
       <guid>https://rjleyva-writes.pages.dev/blog/neovim/native-lsp-setup-in-neovim-0.11+-on-macos</guid>
       <pubDate>Sat, 20 Dec 2025 00:00:00 GMT</pubDate>
@@ -125,9 +121,9 @@
     </item>
     <item>
       <title><![CDATA[Why transition: all Is Risky (CSS Transition Pitfall)]]></title>
-      <description><![CDATA[It wasn’t catastrophic but once you see it, you can’t unsee it. On slower machines or reduced motion environments, it became even more noticeable.]]></description>
-      <link>https://rjleyva-writes.pages.dev/blog/css/fix-social-icon-flicker-on-theme-toggle</link>
-      <guid>https://rjleyva-writes.pages.dev/blog/css/fix-social-icon-flicker-on-theme-toggle</guid>
+      <description><![CDATA[A small CSS bug caused by `transition: all`, and the subtle visual flicker it introduced—along with why explicitly scoping transitions leads to more predictable UI behavior.]]></description>
+      <link>https://rjleyva-writes.pages.dev/blog/css/why-transition-all-is-risky</link>
+      <guid>https://rjleyva-writes.pages.dev/blog/css/why-transition-all-is-risky</guid>
       <pubDate>Thu, 04 Dec 2025 00:00:00 GMT</pubDate>
       <category><![CDATA[css]]></category>
       <category><![CDATA[bugs]]></category>
