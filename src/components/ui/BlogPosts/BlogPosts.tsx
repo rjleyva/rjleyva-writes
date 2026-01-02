@@ -1,46 +1,70 @@
 import type React from 'react'
 import { useMemo, useState } from 'react'
 import { Helmet } from '@dr.pogodin/react-helmet'
-import { useGetPosts } from '@/hooks/useBlog'
+import { useGetPostsMetadata, useLazyPosts } from '@/hooks/useBlog'
 import { getTopicDisplayName } from '@/lib/postFormattingUtils'
 import type { Post } from '@/types/post'
 import BlogPostsGrid from '../BlogPostsGrid/BlogPostsGrid'
 import BlogPostsSidebar from '../BlogPostsSidebar/BlogPostsSideBar'
+import LoadingSpinner from '../LoadingSpinner/LoadingSpinner'
 import PostsListingHeader from '../PostsListingHeader/PostsListingHeader'
 import styles from './blog-posts.module.css'
 
-const groupPostsByTopic = (posts: Post[]): Record<string, Post[]> => {
-  const postsGroupedByTopic: Record<string, Post[]> = {}
-
-  for (const post of posts) {
-    const topic = post.topic
-    postsGroupedByTopic[topic] ??= []
-    postsGroupedByTopic[topic].push(post)
-  }
-
-  return postsGroupedByTopic
-}
-
 const BlogPosts = (): React.JSX.Element => {
-  const { posts } = useGetPosts()
   const [selectedTopic, setSelectedTopic] = useState<string | null>(null)
+  const { posts, loading, error, hasMore, loadMore } = useLazyPosts(
+    12,
+    selectedTopic
+  )
+
+  // Get metadata for sidebar (topics and counts)
+  const allMetadata = useGetPostsMetadata()
 
   const postsByTopic = useMemo(() => {
-    return groupPostsByTopic(posts)
-  }, [posts])
+    const grouped: Record<string, Post[]> = {}
+    // Group by topic from metadata for sidebar counts
+    for (const meta of allMetadata) {
+      // Skip posts without a valid topic
+      if (!meta.topic) continue
+      grouped[meta.topic] ??= []
+      // For sidebar, we just need the count, so we can push empty posts or use metadata
+      grouped[meta.topic!]!.push({} as Post) // We just need the length, so dummy posts are fine
+    }
+    return grouped
+  }, [allMetadata])
 
   const availableTopics = useMemo(() => {
     return Object.keys(postsByTopic).sort()
   }, [postsByTopic])
 
-  const displayedPosts = useMemo(() => {
-    if (selectedTopic == null) {
-      return posts
-    }
+  if (loading) {
+    return (
+      <>
+        <Helmet>
+          <title>Loading Blog... | RJ Leyva&#39;s Blog</title>
+        </Helmet>
+        <div className={styles['blog-posts']}>
+          <LoadingSpinner />
+        </div>
+      </>
+    )
+  }
 
-    const topicPosts = postsByTopic[selectedTopic]
-    return topicPosts ?? []
-  }, [selectedTopic, posts, postsByTopic])
+  if (error != null) {
+    return (
+      <>
+        <Helmet>
+          <title>Error | RJ Leyva&#39;s Blog</title>
+        </Helmet>
+        <div className={styles['blog-posts']}>
+          <section>
+            <h1>Failed to Load Blog Posts</h1>
+            <p>{error}</p>
+          </section>
+        </div>
+      </>
+    )
+  }
 
   return (
     <>
@@ -99,7 +123,7 @@ const BlogPosts = (): React.JSX.Element => {
           selectedTopic={selectedTopic}
           availableTopics={availableTopics}
           postsByTopic={postsByTopic}
-          posts={posts}
+          posts={allMetadata.map(() => ({}) as Post)} // Dummy posts array with correct length for total count
           onTopicSelect={setSelectedTopic}
         />
 
@@ -107,9 +131,21 @@ const BlogPosts = (): React.JSX.Element => {
           <PostsListingHeader selectedTopic={selectedTopic} />
 
           <BlogPostsGrid
-            displayedPosts={displayedPosts}
+            displayedPosts={posts}
             onTopicSelect={setSelectedTopic}
           />
+
+          {hasMore && (
+            <div className={styles['blog-posts__load-more']}>
+              <button
+                className={styles['load-more-button']}
+                onClick={loadMore}
+                disabled={loading}
+              >
+                Load More Posts
+              </button>
+            </div>
+          )}
         </main>
       </div>
     </>
