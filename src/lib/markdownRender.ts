@@ -1,5 +1,3 @@
-import type { Root as HastRoot } from 'hast'
-import type { Root as MdastRoot } from 'mdast'
 import rehypeReact from 'rehype-react'
 import rehypeSanitize from 'rehype-sanitize'
 import rehypeSlug from 'rehype-slug'
@@ -116,17 +114,13 @@ export class MarkdownRenderer {
 
   render(markdown: string): {
     result: React.ReactElement
-    mdast: MdastRoot | null
-    hast: HastRoot | null
   } {
     const processor = this.getProcessor()
     const file = processor.processSync(markdown)
     const result = file.result as React.ReactElement
 
     return {
-      result,
-      mdast: null,
-      hast: null
+      result
     }
   }
 }
