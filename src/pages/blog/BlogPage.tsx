@@ -3,12 +3,24 @@ import { memo } from 'react'
 import { Helmet } from '@dr.pogodin/react-helmet'
 import BlogPostContent from '@/components/ui/BlogPostContent/BlogPostContent'
 import PostDetailHeader from '@/components/ui/PostDetailHeader/PostDetailHeader'
+import LoadingSpinner from '@/components/ui/LoadingSpinner/LoadingSpinner'
 import { useGetPost } from '@/hooks/useBlog'
 import { getTopicDisplayName } from '@/lib/postFormattingUtils'
 import { config } from '@/utils/config'
 
 const BlogPage = (): React.JSX.Element => {
-  const { post, error } = useGetPost()
+  const { post, loading, error } = useGetPost()
+
+  if (loading) {
+    return (
+      <section>
+        <Helmet>
+          <title>Loading... | RJ Leyva&#39;s Blog</title>
+        </Helmet>
+        <LoadingSpinner />
+      </section>
+    )
+  }
 
   if (error != null || !post) {
     return (
