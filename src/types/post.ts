@@ -1,12 +1,15 @@
-export interface Post {
+export interface PostMetadata {
   title: string
   date: Date
   description: string
   tags: string[]
   slug: string
   topic: string
-  content: string
   readingTime: number
+}
+
+export interface Post extends PostMetadata {
+  content: string
 }
 
 export interface SerializedPost {
@@ -16,8 +19,8 @@ export interface SerializedPost {
   tags: string[]
   slug: string
   topic: string
-  content: string
   readingTime: number
+  content: string
 }
 
 export interface PostFrontmatter {
