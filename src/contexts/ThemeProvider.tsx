@@ -31,6 +31,7 @@ export const ThemeProvider = ({
   useLayoutEffect(() => {
     const root = document.documentElement
     root.setAttribute('data-theme', theme)
+    root.style.colorScheme = theme
 
     const metaThemeColor = document.querySelector('meta[name="color-scheme"]')
     if (metaThemeColor) {
