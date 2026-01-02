@@ -1,18 +1,18 @@
-import type { Post, SerializedPost } from '@/types/post'
-import { processedPosts } from './generatedContent'
+import type { PostMetadata, SerializedPost } from '@/types/post'
+import { processedPosts } from './generatedMetadata'
 
-const convertProcessedPosts = (): Post[] => {
+const convertProcessedPostsToMetadata = (): PostMetadata[] => {
   return (processedPosts as readonly SerializedPost[]).map(post => ({
-    ...post,
+    title: post.title,
     date: new Date(post.date),
-    tags: [...post.tags]
+    description: post.description,
+    tags: [...post.tags],
+    slug: post.slug,
+    topic: post.topic,
+    readingTime: post.readingTime
   }))
 }
 
-export const posts: Post[] = convertProcessedPosts()
+export const postsMetadata: PostMetadata[] = convertProcessedPostsToMetadata()
 
-export const getAllPosts = (): Post[] => posts
-
-export const getPostBySlug = (topic: string, slug: string): Post | null => {
-  return posts.find(post => post.topic === topic && post.slug === slug) ?? null
-}
+export const getAllPostsMetadata = (): PostMetadata[] => postsMetadata
