@@ -6,14 +6,19 @@ import styles from './blog-card.module.css'
 
 interface BlogCardProps {
   post: Post
+  onPreload?: () => void
 }
 
-const BlogCard = ({ post }: BlogCardProps): React.JSX.Element => {
+const BlogCard = ({ post, onPreload }: BlogCardProps): React.JSX.Element => {
   const { date, dateTime, readingTime } = getPostMetadata(post)
 
   return (
     <article className={styles['blog-card']}>
-      <Link to={`/blog/${post.topic}/${post.slug}`}>
+      <Link
+        to={`/blog/${post.topic}/${post.slug}`}
+        onMouseEnter={onPreload}
+        onFocus={onPreload}
+      >
         <h2 className={styles['blog-card__title']}>{post.title}</h2>
         <p className={styles['blog-card__description']}>{post.description}</p>
         <div className={styles['blog-card__metadata']}>
