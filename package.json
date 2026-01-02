@@ -8,7 +8,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsx --tsconfig tsconfig.node.json scripts/generateContentImports.ts && tsx --tsconfig tsconfig.node.json scripts/generateRssFeed.ts && tsc && vite build",
+    "build": "tsx --tsconfig tsconfig.node.json scripts/generateRssFeed.ts && tsc && vite build",
     "build:production": "pnpm run lint && pnpm run type-check && pnpm run build",
     "preview": "vite preview",
     "lint": "eslint .",
