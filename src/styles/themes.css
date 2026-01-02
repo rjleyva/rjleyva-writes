@@ -1,7 +1,3 @@
-:root {
-  color-scheme: light dark;
-}
-
 :root,
 [data-theme='light'] {
   --base: #fafafa;
