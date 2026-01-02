@@ -1,6 +1,4 @@
 import type { ReactElement } from 'react'
-import type { Root as HastRoot } from 'hast'
-import type { Root as MdastRoot } from 'mdast'
 import { MarkdownRenderer } from '@/lib/markdownRender'
 import { getContentHash } from '@/utils/contentHash'
 import { contentCache } from '@/utils/markdownCache'
@@ -16,8 +14,6 @@ const getRenderer = (): MarkdownRenderer => {
 
 export interface RenderedContent {
   dom: ReactElement | null
-  mdast: MdastRoot | null
-  hast: HastRoot | null
 }
 
 export const renderMarkdown = async (
@@ -39,8 +35,8 @@ export const renderMarkdown = async (
 
   try {
     const renderer = getRenderer()
-    const { result: dom, mdast, hast } = renderer.render(markdown)
-    const rendered: RenderedContent = { dom, mdast, hast }
+    const { result: dom } = renderer.render(markdown)
+    const rendered: RenderedContent = { dom }
 
     // Cache the result
     try {
