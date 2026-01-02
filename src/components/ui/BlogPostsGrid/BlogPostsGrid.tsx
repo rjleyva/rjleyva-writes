@@ -1,4 +1,6 @@
 import type React from 'react'
+import { useCallback } from 'react'
+import { useRoutePreloader } from '@/hooks/useRoutePreloader'
 import type { Post } from '@/types/post'
 import BlogCard from '../BlogCard/BlogCard'
 import styles from './blog-posts-grid.module.css'
@@ -12,6 +14,12 @@ const BlogPostsGrid = ({
   displayedPosts,
   onTopicSelect
 }: BlogPostsGridProps): React.JSX.Element => {
+  const { preloadRoute } = useRoutePreloader()
+
+  const handlePreloadBlogPost = useCallback(() => {
+    preloadRoute('blog-post')
+  }, [preloadRoute])
+
   return (
     <div className={styles['blog-posts-grid']}>
       {displayedPosts.length === 0 ? (
@@ -25,8 +33,12 @@ const BlogPostsGrid = ({
           </button>
         </div>
       ) : (
-        displayedPosts.map(post => (
-          <BlogCard key={`${post.topic}/${post.slug}`} post={post} />
+        displayedPosts.map((post, index) => (
+          <BlogCard
+            key={`${post.topic}/${post.slug}`}
+            post={post}
+            {...(index < 3 ? { onPreload: handlePreloadBlogPost } : {})} // Only preload first 3 posts
+          />
         ))
       )}
     </div>
