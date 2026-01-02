@@ -13,36 +13,65 @@ class FaviconManager {
   }
 
   private initFaviconElement(): void {
-    this.faviconLinkElement = document.querySelector(
+    // Try to find favicon link element with various possible selectors
+    this.faviconLinkElement ??= document.querySelector(
       'link[rel="icon"]'
+    ) as HTMLLinkElement | null
+
+    // Fallback to shortcut icon for older browsers
+    this.faviconLinkElement ??= document.querySelector(
+      'link[rel="shortcut icon"]'
     ) as HTMLLinkElement | null
   }
 
   private setupMediaQueryListener(): void {
     this.mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
     this.mediaQuery.addEventListener('change', () => {
-      this.updateFavicon()
+      this.updateFaviconForSystemTheme()
     })
-    // Set initial favicon based on current preference
-    this.updateFavicon()
+    // Set initial favicon based on current system preference
+    this.updateFaviconForSystemTheme()
   }
 
-  public setFaviconForTheme(_isDarkTheme: boolean): void {
-    // This method is kept for backward compatibility but now uses browser preference
-    this.updateFavicon()
-  }
-
-  private updateFavicon(): void {
+  private updateFaviconForSystemTheme(): void {
     // Ensure favicon element reference is cached
     if (!this.faviconLinkElement) {
       this.initFaviconElement()
     }
 
-    if (!this.faviconLinkElement) return
+    if (!this.faviconLinkElement) {
+      console.warn('FaviconManager: Could not find favicon link element')
+      return
+    }
+
+    // Update favicon based on current system theme preference
+    const prefersDark = window.matchMedia(
+      '(prefers-color-scheme: dark)'
+    ).matches
+    const timestamp = Date.now()
+    this.faviconLinkElement.href = prefersDark
+      ? `/favicons/favicon-light.svg?theme=dark&t=${timestamp}`
+      : `/favicons/favicon-dark.svg?theme=light&t=${timestamp}`
+  }
+
+  public setFaviconForTheme(isDarkTheme: boolean): void {
+    this.updateFaviconForTheme(isDarkTheme)
+  }
+
+  private updateFaviconForTheme(_isDarkTheme: boolean): void {
+    // Ensure favicon element reference is cached
+    if (!this.faviconLinkElement) {
+      this.initFaviconElement()
+    }
+
+    if (!this.faviconLinkElement) {
+      console.warn('FaviconManager: Could not find favicon link element')
+      return
+    }
 
     // Mapping logic:
-    // Use browser/system theme preference to determine favicon color for visibility
-    // against the browser tab background, not the website's theme
+    // Use BROWSER preference to determine favicon color for visibility
+    // against browser tab background, not app theme
     const prefersDark = window.matchMedia(
       '(prefers-color-scheme: dark)'
     ).matches
