@@ -1,4 +1,4 @@
-import { useMemo, useState, useEffect, useCallback } from 'react'
+import { useMemo, useState, useEffect, useCallback, useRef } from 'react'
 import { useParams } from 'react-router'
 import { getAllPosts, getPostBySlug, getPostsLazy } from '@/lib/blogContentApi'
 import { getAllPostsMetadata } from '@/lib/content/contentLoader'
@@ -109,14 +109,26 @@ export const useLazyPosts = (pageSize: number = 10, topic?: string | null): UseL
     return topic != null ? allMetadata.filter(meta => meta.topic === topic).length : allMetadata.length
   })
 
-  const loadPosts = useCallback(async (currentOffset: number, append: boolean = false, currentTopic?: string | null): Promise<void> => {
+  // Use ref to track if a request is currently in progress
+  const isLoadingRef = useRef(false)
+
+  const loadPosts = useCallback(async (currentOffset: number, append: boolean = false, currentTopic?: string | null, requestPageSize: number): Promise<void> => {
+    // Use the provided pageSize (required parameter)
+
+    // Prevent concurrent requests
+    if (isLoadingRef.current) {
+      return
+    }
+
+    isLoadingRef.current = true
+
     try {
       if (!append) {
         setLoading(true)
         setError(null)
       }
 
-      const newPosts = await getPostsLazy(pageSize, currentOffset, currentTopic ?? undefined)
+      const newPosts = await getPostsLazy(requestPageSize, currentOffset, currentTopic ?? undefined)
 
       if (append) {
         setPosts(prevPosts => [...prevPosts, ...newPosts])
@@ -129,7 +141,7 @@ export const useLazyPosts = (pageSize: number = 10, topic?: string | null): UseL
       const filteredCount = currentTopic != null ? allMetadata.filter(meta => meta.topic === currentTopic).length : allMetadata.length
       setTotalCount(filteredCount)
 
-      setHasMore(newPosts.length === pageSize && currentOffset + newPosts.length < filteredCount)
+      setHasMore(newPosts.length === requestPageSize && currentOffset + newPosts.length < filteredCount)
     } catch (err) {
       const appError = handleError(err, 'useLazyPosts')
       setError(appError.message)
@@ -138,19 +150,20 @@ export const useLazyPosts = (pageSize: number = 10, topic?: string | null): UseL
       }
     } finally {
       setLoading(false)
+      isLoadingRef.current = false
     }
-  }, [pageSize])
+  }, [])
 
   useEffect(() => {
     setOffset(0) // Reset offset when topic changes
-    loadPosts(0, false, topic)
-  }, [topic, loadPosts])
+    loadPosts(0, false, topic, pageSize)
+  }, [topic, loadPosts, pageSize])
 
   const loadMore = (): void => {
-    if (!loading && hasMore) {
+    if (!loading && hasMore && !isLoadingRef.current) {
       const newOffset = offset + pageSize
       setOffset(newOffset)
-      loadPosts(newOffset, true, topic)
+      loadPosts(newOffset, true, topic, pageSize)
     }
   }
 
