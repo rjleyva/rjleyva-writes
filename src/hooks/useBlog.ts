@@ -1,6 +1,7 @@
 import { useMemo, useState, useEffect, useCallback } from 'react'
 import { useParams } from 'react-router'
 import { getAllPosts, getPostBySlug, getPostsLazy } from '@/lib/blogContentApi'
+import { getAllPostsMetadata } from '@/lib/content/contentLoader'
 import type { Post, PostMetadata } from '@/types/post'
 import { handleError } from '@/utils/errorHandler'
 
@@ -82,8 +83,6 @@ export const useGetPost = (): UsePostReturn => {
 // Hook for getting post metadata (non-lazy)
 export const useGetPostsMetadata = (limit?: number): PostMetadata[] => {
   return useMemo(() => {
-    // Import synchronously for metadata that's needed immediately
-    const { getAllPostsMetadata } = require('@/lib/content/contentLoader')
     const metadata = getAllPostsMetadata()
     return limit != null ? metadata.slice(0, limit) : metadata
   }, [limit])
@@ -106,7 +105,6 @@ export const useLazyPosts = (pageSize: number = 10, topic?: string | null): UseL
   const [hasMore, setHasMore] = useState(true)
   const [totalCount, setTotalCount] = useState(() => {
     // Get total count from metadata
-    const { getAllPostsMetadata } = require('@/lib/content/contentLoader')
     const allMetadata = getAllPostsMetadata()
     return topic != null ? allMetadata.filter(meta => meta.topic === topic).length : allMetadata.length
   })
@@ -127,7 +125,6 @@ export const useLazyPosts = (pageSize: number = 10, topic?: string | null): UseL
       }
 
       // Update total count when topic changes
-      const { getAllPostsMetadata } = require('@/lib/content/contentLoader')
       const allMetadata = getAllPostsMetadata()
       const filteredCount = currentTopic != null ? allMetadata.filter(meta => meta.topic === currentTopic).length : allMetadata.length
       setTotalCount(filteredCount)
