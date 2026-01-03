@@ -155,6 +155,25 @@ export const processedPosts: SerializedPost[] = [
     "readingTime": 7
   },
   {
+    "title": "What 2025 Taught Me as a Frontend Developer",
+    "date": "2026-01-03T00:00:00.000Z",
+    "description": "A personal reflection on my 2025 frontend journey—navigating growth, setbacks, and lessons learned from building, refactoring, and rethinking how I approach development.",
+    "tags": [
+      "frontend",
+      "web-development",
+      "react",
+      "typescript",
+      "dev-journey",
+      "growth",
+      "reflection",
+      "career"
+    ],
+    "slug": "what-2025-taught-me-as-frontend-developer",
+    "topic": "web-development",
+    "content": "",
+    "readingTime": 4
+  },
+  {
     "title": "My WezTerm Terminal Setup",
     "date": "2025-12-05T00:00:00.000Z",
     "description": "How I tuned my terminal for long, focused coding sessions by reducing visual noise and prioritizing ergonomics.",

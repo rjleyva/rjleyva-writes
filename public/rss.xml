@@ -6,8 +6,23 @@
     <link>https://rjleyva-writes.pages.dev</link>
     <atom:link href="https://rjleyva-writes.pages.dev/rss.xml" rel="self" type="application/rss+xml" />
     <language>en-us</language>
-    <lastBuildDate>Fri, 02 Jan 2026 04:21:00 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 03 Jan 2026 09:18:08 GMT</lastBuildDate>
     <generator>RJ Leyva's Blog</generator>
+    <item>
+      <title><![CDATA[What 2025 Taught Me as a Frontend Developer]]></title>
+      <description><![CDATA[A personal reflection on my 2025 frontend journey—navigating growth, setbacks, and lessons learned from building, refactoring, and rethinking how I approach development.]]></description>
+      <link>https://rjleyva-writes.pages.dev/blog/web-development/what-2025-taught-me-as-frontend-developer</link>
+      <guid>https://rjleyva-writes.pages.dev/blog/web-development/what-2025-taught-me-as-frontend-developer</guid>
+      <pubDate>Sat, 03 Jan 2026 00:00:00 GMT</pubDate>
+      <category><![CDATA[frontend]]></category>
+      <category><![CDATA[web-development]]></category>
+      <category><![CDATA[react]]></category>
+      <category><![CDATA[typescript]]></category>
+      <category><![CDATA[dev-journey]]></category>
+      <category><![CDATA[growth]]></category>
+      <category><![CDATA[reflection]]></category>
+      <category><![CDATA[career]]></category>
+    </item>
     <item>
       <title><![CDATA[A Journey into Full-Stack Development: Exploring a pnpm Workspace Monorepo]]></title>
       <description><![CDATA[A hands-on look at setting up a pnpm workspace monorepo for Yaru Koto, including shared packages, TypeScript types, and full-stack project structure for solo developers.]]></description>
