@@ -112,7 +112,7 @@ export const useLazyPosts = (pageSize: number = 10, topic?: string | null): UseL
   // Use ref to track if a request is currently in progress
   const isLoadingRef = useRef(false)
 
-  const loadPosts = useCallback(async (currentOffset: number, append: boolean = false, currentTopic?: string | null, requestPageSize: number): Promise<void> => {
+  const loadPosts = useCallback(async (currentOffset: number, append: boolean = false, requestPageSize: number, currentTopic?: string | null): Promise<void> => {
     // Use the provided pageSize (required parameter)
 
     // Prevent concurrent requests
@@ -156,14 +156,14 @@ export const useLazyPosts = (pageSize: number = 10, topic?: string | null): UseL
 
   useEffect(() => {
     setOffset(0) // Reset offset when topic changes
-    loadPosts(0, false, topic, pageSize)
+    loadPosts(0, false, pageSize, topic)
   }, [topic, loadPosts, pageSize])
 
   const loadMore = (): void => {
     if (!loading && hasMore && !isLoadingRef.current) {
       const newOffset = offset + pageSize
       setOffset(newOffset)
-      loadPosts(newOffset, true, topic, pageSize)
+      loadPosts(newOffset, true, pageSize, topic)
     }
   }
 
